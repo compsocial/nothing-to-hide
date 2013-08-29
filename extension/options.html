@@ -1,0 +1,91 @@
+<html>
+<head>
+  <title>Options for the Redact Your Gmail extension</title>
+<style>
+  body {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 18px;
+    color: black;
+  }
+  
+  label { font-size: 16px; }
+
+  .header { margin-bottom: 12px; }
+  .options { margin-bottom: 12px; }
+  .option { margin-bottom: 6px; }
+
+</style>
+<script src="options.js"></script>
+</head>
+
+<body>
+  <div style="margin-left: 25px; margin-top: 25px;">
+    <div style="margin-bottom: 48px; text-transform: uppercase; letter-spacing: 0.1em; font-size: 95%;">
+      <strong>Vagueify extension options</strong>
+    </div>
+    <div class="header">
+      <strong>What redaction style would you like to use?</strong>
+    </div>
+    <div class="options">
+      <div class="option">
+        <label>
+          <input id="defaultellipsis" type="radio" name="style" value="ellipsis" checked>
+          Ellipsis style. Words are replaced with &hellip; &nbsp; (better for blending in.)
+        </label>
+      </div>
+      <div class="option">
+        <label>
+          <input id="redact" type="radio" name="style" value="blackout">
+          Blackout style. Words are replaced with <span style='background-color: black; color: black;'>[redacted]</span> &nbsp; (better for making a point.)
+        </label>
+      </div>
+    </div>
+
+    <div class="header" style="margin-top: 42px;">
+      <strong>Keep the first letter of words visible?</strong>
+    </div>
+    <div class="options">
+      <div class="option">
+        <label>
+          <input id="defaultfirst" type="radio" name="first" value="keep" checked>
+          Yes. This can help readers (both intended and unintended) understand more easily.
+        </label>
+      </div>
+      <div class="option">
+        <label>
+          <input id="entire" type="radio" name="first" value="nokeep">
+          No. The entire word will be hidden using the redaction style above.
+        </label>
+      </div>
+    </div>
+
+    <div class="header" style="margin-top: 42px;">
+      <strong>What words should be redacted?</strong>
+    </div>
+    <div class="options">
+      <div class="option">
+        <label>
+          <input id="defaultten" type="radio" name="dist" value="10k" checked>
+          Words not among the 10K most frequent on the web. (strikes a balance between readability and obscurity.)
+        </label>
+      </div>
+      <div class="option">
+        <label>
+          <input id="five" type="radio" name="dist" value="5k">
+          Words not among the 5K most frequent on the web. (more strict, but still readable.)
+        </label>
+      </div>
+      <div class="option">
+        <label>
+          <input id="one" type="radio" name="dist" value="1k">
+          Words not among the 1K most frequent on the web. (very strict. all but <em>very</em> common words redacted.)
+        </label>
+      </div>
+      <div style="margin-top: 12px;">
+        <span style="font-size: 12px;"><a href="http://www.ldc.upenn.edu/Catalog/docs/LDC2006T13/readme.txt" target="_blank">visit the dataset</a> underlying this frequency test</span>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
