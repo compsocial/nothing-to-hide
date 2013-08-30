@@ -3,3 +3,5 @@
 - [[https://github.com/dat/pyner][Pyner]]
 - [[http://flask.pocoo.org/][Flask]]
 - [[https://github.com/dat/stanford-ner][Stanford NER]]
+- [[http://nlp.stanford.edu/software/tagger.shtml][Stanford Tagger]]
+- [[https://pypi.python.org/pypi/nltk/2.0.1][NLTK]]
