@@ -7,7 +7,7 @@ from onetfreq import top10k, top5k, top1k
 app = Flask(__name__)
 nerify = ner.SocketNER(host='localhost', port=9000)
 # need to move this to a more permanent location
-st = POSTagger('/home/egilbert/Downloads/stanford-postagger-2013-06-20/models/english-bidirectional-distsim.tagger', '/home/egilbert/Downloads/stanford-postagger-2013-06-20/stanford-postagger-3.2.0.jar')
+st = POSTagger('./stanford-postagger/models/english-bidirectional-distsim.tagger', ',/stanford-postagger/stanford-postagger-3.2.0.jar')
 
 punct = re.compile('[%s]' % re.escape(string.punctuation))
 # note these are in reverse order of use for pop() later
