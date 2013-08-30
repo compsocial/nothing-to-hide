@@ -7,17 +7,19 @@ from onetfreq import top10k, top5k, top1k
 app = Flask(__name__)
 nerify = ner.SocketNER(host='localhost', port=9000)
 # need to move this to a more permanent location
-st = POSTagger('./stanford-postagger/models/english-bidirectional-distsim.tagger', ',/stanford-postagger/stanford-postagger-3.2.0.jar')
+st = POSTagger('stanford-postagger/models/english-bidirectional-distsim.tagger',
+'stanford-postagger/stanford-postagger-3.2.0.jar')
 
 punct = re.compile('[%s]' % re.escape(string.punctuation))
 # note these are in reverse order of use for pop() later
-altperson = ['somebody else still', 'an individual', 'another person', 'somebody else', 'someone else', 'someone', 'this person']
+altperson = ['somebody else still', 'an individual', 'another person',
+'somebody else', 'someone else', 'someone', 'this person']
 altloc = ['that spot', 'that site', 'that location', 'there', 'that place']
 altnoun = ['that thing']
 altverb = ['something']
 
 @app.route("/named-entities", methods=['GET' ,'POST'])
-def ner():
+def ner_process():
     text = request.args["text"]
     return jsonify(stanfordner(text))
 
@@ -36,14 +38,14 @@ def abstract(text):
     if 'PERSON' in ne:
         people = ne['PERSON']
         for p in people:
-           text = re.sub(p, p[0]+'[p]', text) 
+            text = re.sub(p, p[0]+'[p]', text)
 
-    if 'LOCATION' in ne: 
+    if 'LOCATION' in ne:
         places = ne['LOCATION']
         for l in places:
             text = re.sub(l, l[0]+'[l]', text)
-        
-    if 'ORGANIZATION' in ne: 
+
+    if 'ORGANIZATION' in ne:
         orgs = ne['ORGANIZATION']
         for o in orgs:
             text = re.sub(o, o[0]+'[o]', text)
