@@ -1,5 +1,5 @@
 console.log(options);
-compose = $('div[aria-label="Compose reply"]');
+compose = $('div[aria-label="Message Body"]');
 //console.log("original: " + compose.text());
 trimmed = compose.text().replace(/^\s+|\s+$/g, '');
 tokens = trimmed.split(' ');
@@ -21,12 +21,12 @@ for (var i=0; i<tokens.length; i++) {
   t = tokens[i].toLowerCase();
   match = punct.exec(t);
   if (match != null) t = match[1];
-  if (lookup[t]) 
+  if (lookup[t])
     ret += tokens[i];
   else {
     if (options.redactEntire == "yes")
       ret += replacement;
-    else 
+    else
       ret += tokens[i].substring(0,1) + replacement;
   }
   ret += " ";
