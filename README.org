@@ -1,0 +1,5 @@
+* Nothing to hide
+** Dependencies
+- [[https://github.com/dat/pyner][Pyner]]
+- [[http://flask.pocoo.org/][Flask]]
+- [[https://github.com/dat/stanford-ner][Stanford NER]]
