@@ -18,17 +18,17 @@ altloc = ['that spot', 'that site', 'that location', 'there', 'that place']
 altnoun = ['that thing']
 altverb = ['something']
 
-@app.route("/named-entities", methods=['GET' ,'POST'])
+@app.route("/named_entities", methods=['POST'])
 def ner_process():
-    text = request.args["text"]
+    text = request.form["text"].encode("utf-8")
     return jsonify(stanfordner(text))
 
 def stanfordner(text):
     return nerify.get_entities(text)
 
-@app.route("/abstractify",  methods=['GET' ,'POST'])
+@app.route("/abstractify",  methods=['POST'])
 def abstractify():
-    text = request.args["text"]
+    text = request.form["text"].encode("utf-8")
     return abstract(text)
 
 def abstract(text):
