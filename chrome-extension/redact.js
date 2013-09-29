@@ -1,6 +1,6 @@
 console.log(options);
 compose = $('div[aria-label="Message Body"]');
-//console.log("original: " + compose.text());
+console.log("original: " + compose.text);
 trimmed = compose.text().replace(/^\s+|\s+$/g, '');
 tokens = trimmed.split(' ');
 punct = /(.*?)[.,!?:;/]$/g;
@@ -17,20 +17,34 @@ else if (options.distCutoff == "1k")
     lookup = top1k;
 
 //var processed = commonWords(tokens, lookup, replacement);
-var processed = compose.text();
+var message_text = compose.text();
 var abstractifyAPI = "http://127.0.0.1:5000/abstractify";
 
-$.post(abstractifyAPI, {text: processed},
+$.post(abstractifyAPI, {text: message_text},
        function(data) {
-           compose.html(data);
+          var processed = data;
+           finish(processed);
        }, "text");
 
+function finish(processed) {
+    console.log(processed);
+    trimmed = processed.replace(/^\s+|\s+$/g, '');
+    console.log(trimmed);
+    tokens = trimmed.split(' ');
+    console.log(tokens);
+    final_message = commonWords(tokens, lookup, replacement);
+    console.log(final_message);
+    compose.html(processed);
+}
+
 function commonWords(tokens, lookup, replacement) {
-    ret = "";
+    var ret = "";
+    var nltk_processed = /[A-Za-z]\[[a-z]\]/;
 
     for (var i=0; i<tokens.length; i++) {
-        t = tokens[i].toLowerCase();
-        match = punct.exec(t);
+        var t = tokens[i].toLowerCase();
+
+        var match = punct.exec(t);
         if (match != null) t = match[1];
         if (lookup[t])
             ret += tokens[i];
@@ -38,7 +52,7 @@ function commonWords(tokens, lookup, replacement) {
             if (options.redactEntire == "yes")
                 ret += replacement;
             else
-                ret += tokens[i].substring(0,1) + replacement;
+                ret += tokens[i].substring(0,3) + replacement;
         }
         ret += " ";
     }

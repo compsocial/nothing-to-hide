@@ -38,17 +38,17 @@ def abstract(text):
     if 'PERSON' in ne:
         people = ne['PERSON']
         for p in people:
-            text = re.sub(p, p[0]+'[p]', text)
+            text = re.sub(p, 'he or she', text)
 
     if 'LOCATION' in ne:
         places = ne['LOCATION']
         for l in places:
-            text = re.sub(l, l[0]+'[l]', text)
+            text = re.sub(l, 'there', text)
 
     if 'ORGANIZATION' in ne:
         orgs = ne['ORGANIZATION']
         for o in orgs:
-            text = re.sub(o, o[0]+'[o]', text)
+            text = re.sub(o, 'the organization', text)
 
     for wordlist in [word_tokenize(s) for s in sent_tokenize(text)]:
         pos = st.tag(wordlist)
@@ -57,7 +57,7 @@ def abstract(text):
             postag = pair[1]
             if not re.match(punct, word) and word.lower() not in top10k:
                 if postag.startswith('N'):
-                    text = re.sub(word, word[0]+'[n]', text)
+                    text = re.sub(word, 'that', text)
                 elif postag.startswith('VB'):
                     text = re.sub(word, word[0]+'[v]', text)
 
