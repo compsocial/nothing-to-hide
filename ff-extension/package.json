@@ -1,0 +1,69 @@
+{
+  "name": "vague-ify",
+  "fullName": "Vague-ify",
+  "id": "jid1-tmT7r3oEuyI9Ag",
+  "description": "a basic add-on",
+  "author": "Eric Gilbert",
+  "license": "MPL 2.0",
+  "version": "0.1",
+  "permissions": {
+      "cross-domain-content": ["http://127.0.0.1:5000/"]
+  },
+  "preferences": [{
+      "name": "redactionStyle",
+      "title": "Redaction Style",
+      "description": "What redaction style would you like to use?",
+      "type": "radio",
+      "value": "E",
+      "options": [
+          {
+              "value": "ellipsis",
+              "label": "Ellipsis style. Words are replaced with …   (better for blending in.)"
+          },
+          {
+              "value": "blackout",
+              "label": "Blackout style. Words are replaced with [redacted]   (better for making a point.)"
+
+          }
+      ]
+  },
+  {
+      "name": "redactEntire",
+      "title": "Word Visibility",
+      "description": "Keep the first letter of words visible?",
+      "type": "radio",
+      "value": "Y",
+      "options": [
+          {
+              "value": "yes",
+              "label": "Yes. This can help readers (both intended and unintended) understand more easily."
+          },
+          {
+              "value": "no",
+              "label": "No. The entire word will be hidden using the redaction style above."
+          }
+      ]
+  },
+  {
+      "name": "distCutoff",
+      "title": "What words should be redacted?",
+      "description": "What words should be redacted?",
+      "type": "radio",
+      "value": "10k",
+      "options": [
+          {
+              "value": "10k",
+              "label": "Words not among the 10K most frequent on the web. (strikes a balance between readability and obscurity.)"
+          },
+          {
+              "value": "5k",
+              "label": "Words not among the 5K most frequent on the web. (more strict, but still readable.)"
+          },
+          {
+              "value": "1k",
+              "label": "Words not among the 1K most frequent on the web. (very strict. all but very common words redacted.)"
+          }
+      ]
+  }
+ ]
+}
