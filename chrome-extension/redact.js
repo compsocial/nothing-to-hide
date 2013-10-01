@@ -1,14 +1,15 @@
+// Show the selected options
 console.log(options);
+// Get message element
 var compose = $('div[aria-label="Message Body"]');
+// Show original message
 console.log("original: " + compose.text);
-var trimmed = compose.text().replace(/^\s+|\s+$/g, '');
-var tokens = trimmed.split(' ');
-var punct = /(.*?)[.,!?:;/]$/g;
 
 // config based on options
 var replacement = "+";
 if (options.redactionStyle == "blackout")
-    replacement = "<span style='background-color: black; color: black;'>[redacted]</span>";
+    replacement =
+    "<span style='background-color: black; color: black;'>[redacted]</span>";
 
 var lookup = top10k;
 if (options.distCutoff == "5k")
@@ -16,15 +17,23 @@ if (options.distCutoff == "5k")
 else if (options.distCutoff == "1k")
     lookup = top1k;
 
-//var processed = commonWords(tokens, lookup, replacement);
 var message_text = compose.text();
 var html_message = compose.html();
 var abstractifyAPI = "http://127.0.0.1:5000/abstractify";
 
+var trimmed = compose.text().replace(/^\s+|\s+$/g, '');
+var tokens = trimmed.split(' ');
+var localTransforms = commonWords(tokens, lookup, replacement);
+
+// Process message with abstractify server
 $.post(abstractifyAPI, {text: message_text},
        function(data) {
-          var transformations = data;
-          finish(transformations, html_message);
+          var serverTransforms = data;
+          var transforms = $.extend(true, {}, serverTransforms, localTransforms);
+          console.log(serverTransforms);
+          console.log(localTransforms);
+          console.log(transforms);
+          finish(transforms, html_message);
        }, "json");
 
 function finish(transformations, html_message) {
@@ -32,31 +41,25 @@ function finish(transformations, html_message) {
     $.each(transformations, function(i, val) {
         processed = processed.replace(i, val);
     });
-    // var trimmed = processed.replace(/^\s+|\s+$/g, '');
-    // var tokens = trimmed.split(' ');
-    // var final_message = commonWords(tokens, lookup, replacement);
+
     compose.html(processed);
 }
 
 function commonWords(tokens, lookup, replacement) {
-    var ret = "";
-    var nltk_processed = /[A-Za-z]\[[a-z]\]/;
+    var transformations = {};
 
-    for (var i=0; i<tokens.length; i++) {
+    for (var i = 0; i < tokens.length; i++) {
         var t = tokens[i].toLowerCase();
 
-        var match = punct.exec(t);
-        if (match != null) t = match[1];
-        if (lookup[t])
-            ret += tokens[i];
-        else {
+        // Found a match
+        if (lookup[t] != null) {
             if (options.redactEntire == "yes")
-                ret += replacement;
+                transformations[tokens[i]] = replacement;
             else
-                ret += tokens[i].substring(0,3) + replacement;
+                transformations[tokens[i]] = tokens[i].substring(0,3)
+                + replacement;
         }
-        ret += " ";
     }
 
-    return ret;
+    return transformations;
 }
