@@ -1,16 +1,16 @@
 console.log(options);
-compose = $('div[aria-label="Message Body"]');
+var compose = $('div[aria-label="Message Body"]');
 console.log("original: " + compose.text);
-trimmed = compose.text().replace(/^\s+|\s+$/g, '');
-tokens = trimmed.split(' ');
-punct = /(.*?)[.,!?:;/]$/g;
+var trimmed = compose.text().replace(/^\s+|\s+$/g, '');
+var tokens = trimmed.split(' ');
+var punct = /(.*?)[.,!?:;/]$/g;
 
 // config based on options
-replacement = "+";
+var replacement = "+";
 if (options.redactionStyle == "blackout")
     replacement = "<span style='background-color: black; color: black;'>[redacted]</span>";
 
-lookup = top10k;
+var lookup = top10k;
 if (options.distCutoff == "5k")
     lookup = top5k;
 else if (options.distCutoff == "1k")
@@ -18,22 +18,23 @@ else if (options.distCutoff == "1k")
 
 //var processed = commonWords(tokens, lookup, replacement);
 var message_text = compose.text();
+var html_message = compose.html();
 var abstractifyAPI = "http://127.0.0.1:5000/abstractify";
 
 $.post(abstractifyAPI, {text: message_text},
        function(data) {
-          var processed = data;
-           finish(processed);
-       }, "text");
+          var transformations = data;
+          finish(transformations, html_message);
+       }, "json");
 
-function finish(processed) {
-    console.log(processed);
-    trimmed = processed.replace(/^\s+|\s+$/g, '');
-    console.log(trimmed);
-    tokens = trimmed.split(' ');
-    console.log(tokens);
-    final_message = commonWords(tokens, lookup, replacement);
-    console.log(final_message);
+function finish(transformations, html_message) {
+    var processed = html_message;
+    $.each(transformations, function(i, val) {
+        processed = processed.replace(i, val);
+    });
+    // var trimmed = processed.replace(/^\s+|\s+$/g, '');
+    // var tokens = trimmed.split(' ');
+    // var final_message = commonWords(tokens, lookup, replacement);
     compose.html(processed);
 }
 
