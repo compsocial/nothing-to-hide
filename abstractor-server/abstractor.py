@@ -32,22 +32,26 @@ def abstractify():
     return abstract(text)
 
 def abstract(text):
-    text = re.sub(' +', ' ', text)
+    #text = re.sub(' +', ' ', text)
     ne = stanfordner(text)
+    transformations = {}
 
     if 'PERSON' in ne:
         people = ne['PERSON']
         for p in people:
+            transformations[p] = 'he or she'
             text = re.sub(p, 'he or she', text)
 
     if 'LOCATION' in ne:
         places = ne['LOCATION']
         for l in places:
+            transformations[l] = 'there'
             text = re.sub(l, 'there', text)
 
     if 'ORGANIZATION' in ne:
         orgs = ne['ORGANIZATION']
         for o in orgs:
+            transformations[o] = 'the organization'
             text = re.sub(o, 'the organization', text)
 
     for wordlist in [word_tokenize(s) for s in sent_tokenize(text)]:
@@ -57,11 +61,13 @@ def abstract(text):
             postag = pair[1]
             if not re.match(punct, word) and word.lower() not in top10k:
                 if postag.startswith('N'):
+                    transformations[word] = 'that'
                     text = re.sub(word, 'that', text)
                 elif postag.startswith('VB'):
+                    transformations[word] = 'did'
                     text = re.sub(word, word[0]+'[v]', text)
 
-    return text
+    return jsonify(transformations)
 
 if __name__ == "__main__":
     app.run(debug=True)
