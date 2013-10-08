@@ -25,7 +25,11 @@ var progressBarHTML =
     </div></div>';
 
 // Process all messages
-$('div[aria-label="Message Body"]').each(function (i, compose_element) {
+var messages = $('div[aria-label="Message Body"]').toArray();
+
+process(messages.pop());
+
+function process (compose_element) {
     // Convert into Jquery object
     var jcompose_element = $(compose_element);
     var message_text = jcompose_element.text();
@@ -64,9 +68,9 @@ $('div[aria-label="Message Body"]').each(function (i, compose_element) {
                var serverTransforms = data;
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
-               finish(serverTransforms, jcompose_element);
+               finish(transforms, jcompose_element);
            }, "json");
-});
+};
 
 function finish(transformations, compose_element) {
     var processed = compose_element.html();
@@ -75,6 +79,13 @@ function finish(transformations, compose_element) {
     });
 
     compose_element.html(processed);
+
+    var next_message = messages.pop();
+
+    if (next_message) {
+        process(next_message);
+    }
+
 }
 
 function commonWords(tokens, lookup, replacement) {
