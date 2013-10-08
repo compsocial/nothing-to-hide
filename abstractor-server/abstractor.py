@@ -3,7 +3,7 @@ import re
 import string
 import collections
 import ner
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from os import path
 from cPickle import HIGHEST_PROTOCOL
 from contextlib import closing
@@ -32,6 +32,10 @@ altloc = collections.deque(['that spot', 'that site', 'that location', \
 altorg = collections.deque(['the organization'])
 altnoun = collections.deque(['that thing'])
 altverb = collections.deque(['something'])
+
+@app.route("/test")
+def test():
+    return render_template("test.html")
 
 @app.route("/get_progress")
 def get_progress():
