@@ -1,16 +1,28 @@
+import shelve
+import re
+import string
+import collections
+import ner
 from flask import Flask, jsonify, request
-import re, string, collections, ner
+from os import path
+from cPickle import HIGHEST_PROTOCOL
+from contextlib import closing
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag.stanford import POSTagger
 from onetfreq import top10k, top5k, top1k
 
+SHELVE_DB = 'shelve.db'
+
 app = Flask(__name__)
+app.config.from_object(__name__)
+
+db = shelve.open(path.join(app.root_path, app.config['SHELVE_DB']),
+                 protocol=HIGHEST_PROTOCOL, writeback=True)
 
 nerify = ner.SocketNER(host='localhost', port=9000)
 # need to move this to a more permanent location
 st = POSTagger('stanford-postagger/models/english-bidirectional-distsim.tagger',
 'stanford-postagger/stanford-postagger-3.2.0.jar')
-
 punct = re.compile('[%s]' % re.escape(string.punctuation))
 # note these are in reverse order of use for pop() later
 altperson = collections.deque(['somebody else still', 'an individual', \
@@ -20,6 +32,10 @@ altloc = collections.deque(['that spot', 'that site', 'that location', \
 altorg = collections.deque(['the organization'])
 altnoun = collections.deque(['that thing'])
 altverb = collections.deque(['something'])
+
+@app.route("/get_progress")
+def get_progress():
+    return jsonify({"progress":db["progress"]})
 
 @app.route("/named_entities", methods=['POST'])
 def ner_process():
@@ -35,16 +51,20 @@ def abstractify():
     return abstract(text)
 
 def abstract(text):
-    #text = re.sub(' +', ' ', text)
+    db.setdefault('progress', 0)
+
     ne = stanfordner(text)
     transformations = {}
 
+    db['progress'] = 0
+    print db['progress']
     if 'PERSON' in ne:
         people = ne['PERSON']
         for p in people:
             print p
             print "person"
             transformations[p] = get_replacement(p, altperson)
+
 
     if 'LOCATION' in ne:
         places = ne['LOCATION']
@@ -53,6 +73,7 @@ def abstract(text):
             print "location"
             transformations[l] = get_replacement(l, altloc)
 
+
     if 'ORGANIZATION' in ne:
         orgs = ne['ORGANIZATION']
         for o in orgs:
@@ -60,6 +81,7 @@ def abstract(text):
             print "object"
             transformations[o] = get_replacement(o, altorg)
 
+    db['progress'] += 25
     for wordlist in [word_tokenize(s) for s in sent_tokenize(text)]:
         pos = st.tag(wordlist)
         for pair in pos:
@@ -76,6 +98,7 @@ def abstract(text):
                         print word
                         print "verb"
 
+    db['progress'] += 25
     return jsonify(transformations)
 
 def proper_case(original, replacement):
@@ -97,4 +120,4 @@ def get_replacement(original, alt_list):
     return replacement
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, threaded=True)

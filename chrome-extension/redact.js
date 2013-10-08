@@ -12,9 +12,17 @@ if (options.distCutoff == "5k")
     lookup = top5k;
 else if (options.distCutoff == "1k")
     lookup = top1k;
-var abstractifyAPI = "http://127.0.0.1:5000/abstractify";
 
+var abstractifyAPI = "http://127.0.0.1:5000/";
+var abstractify = abstractifyAPI + "abstractify";
+var progress = abstractifyAPI + "get_progress";
 
+var progressBarHTML = '<div class="msg">Vaguefying message…</div> \
+    <div class="lpb" style="width=100%;"> \
+    <div id="lpt" class="vprogress"style="width: 10%;"> \
+    </div></div>';
+
+// Process all messages
 $('div[aria-label="Message Body"]').each(function (i, compose_element) {
     // Convert into Jquery object
     var jcompose_element = $(compose_element);
@@ -23,9 +31,31 @@ $('div[aria-label="Message Body"]').each(function (i, compose_element) {
     var tokens = trimmed.split(' ');
     var localTransforms = commonWords(tokens, lookup, replacement);
 
+    // Append a progress bar
+    jcompose_element.prepend(progressBarHTML);
+
+    var timeout = null;
+    (function poll() {
+        $.ajax({
+            url: progress,
+            type: "GET",
+            success: function(data) {
+                console.log("polling");
+                console.log(data.progress);
+                $(".vprogress").css({ "width": data.progress + '%'});
+            },
+            dataType: "json",
+            complete: timeout = setTimeout(function() {poll();}, 5000),
+            timeout: 500
+        });
+    })();
+
     // Process message with abstractify server
-    $.post(abstractifyAPI, {text: message_text},
+    $.post(abstractify, {text: message_text},
            function(data) {
+               $(".lpb").hide(); // hide the progress bar
+               $(".msg").hide(); // hide progress bar title message
+               clearTimeout(timeout);
                var serverTransforms = data;
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
