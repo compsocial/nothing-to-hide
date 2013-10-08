@@ -17,7 +17,9 @@ var abstractifyAPI = "http://127.0.0.1:5000/";
 var abstractify = abstractifyAPI + "abstractify";
 var progress = abstractifyAPI + "get_progress";
 
-var progressBarHTML = '<div class="msg">Vaguefying message…</div> \
+var progressBarHTML =
+    '<div class="vagueify-msg" style="text-align:center; font-weight:bold;"> \
+    Vaguefying message…</div> \
     <div class="lpb" style="width=100%;"> \
     <div id="lpt" class="vprogress"style="width: 10%;"> \
     </div></div>';
@@ -35,7 +37,7 @@ $('div[aria-label="Message Body"]').each(function (i, compose_element) {
     jcompose_element.prepend(progressBarHTML);
 
     var timeout = null;
-    (function poll() {
+    function poll() {
         $.ajax({
             url: progress,
             type: "GET",
@@ -48,13 +50,16 @@ $('div[aria-label="Message Body"]').each(function (i, compose_element) {
             complete: timeout = setTimeout(function() {poll();}, 5000),
             timeout: 500
         });
-    })();
+    }
+
+    // Start polling when Ajax fires up
+    $(document).ajaxStart(poll);
 
     // Process message with abstractify server
     $.post(abstractify, {text: message_text},
            function(data) {
                $(".lpb").hide(); // hide the progress bar
-               $(".msg").hide(); // hide progress bar title message
+               $(".vagueify-msg").hide(); // hide progress bar title message
                clearTimeout(timeout);
                var serverTransforms = data;
                var transforms = $.extend(true, {}, serverTransforms,

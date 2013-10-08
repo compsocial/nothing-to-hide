@@ -52,12 +52,12 @@ def abstractify():
 
 def abstract(text):
     db.setdefault('progress', 0)
+    count = 0 # Just starting
+    db['progress'] = count
 
     ne = stanfordner(text)
     transformations = {}
 
-    db['progress'] = 0
-    print db['progress']
     if 'PERSON' in ne:
         people = ne['PERSON']
         for p in people:
@@ -81,9 +81,15 @@ def abstract(text):
             print "object"
             transformations[o] = get_replacement(o, altorg)
 
-    db['progress'] += 25
-    for wordlist in [word_tokenize(s) for s in sent_tokenize(text)]:
+    count = 50 # Half way done
+    wordlists = [word_tokenize(s) for s in sent_tokenize(text)]
+    increment = 50.0/len(wordlists) # Calculate increment for progress bar
+
+    print "increment" + str(increment)
+    for wordlist in wordlists:
         pos = st.tag(wordlist)
+        count += increment
+        db['progress'] = count # Update value for progress bar
         for pair in pos:
             word = pair[0]
             postag = pair[1]
@@ -98,7 +104,8 @@ def abstract(text):
                         print word
                         print "verb"
 
-    db['progress'] += 25
+    db['progress'] = 0 # Reset vale for next run
+
     return jsonify(transformations)
 
 def proper_case(original, replacement):
