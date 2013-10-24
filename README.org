@@ -1,4 +1,7 @@
-* Nothing to hide
+* Nothing to Hide
+** Warning
+This project is on a very early stage of development. On same rare
+occasions it might tele-transport your computer to event horizon.
 ** The Problem
 Email is [[https://en.wikipedia.org/wiki/Email_security#Privacy_concerns][not a very private method of communication.]]
 ** Current Solutions
@@ -9,15 +12,23 @@ traction. Without being popular the system is not very effective since
 it requires all parties involved in communication to have a special
 setup and to have create a public/private key pair. Also, many of the
 current solutions are hard to setup and configure for many
-users. Nothing to hide tries a radically different approach to
+users. Nothing to Hide tries a radically different approach to
 securing email.
 ** Our Solution
 Nothing to Hide attempts to make email more secure by making messages
 more vague, in such a way that the intended recipient can still
-understand the message but snoopers can't.
+understand the message but snoopers can't. In it's current form it
+only available as [[https://www.google.com/intl/en/chrome/browser/][Google Chrome]] and [[http://www.chromium.org/Home][Chromium]] add-on for [[https://mail.google.com][Gmail]]. A
+Firefox version of the add-on is on the works.
 ** Installation
-First install our Chrome extension.
+First install our Chrome extension. Also, you need the following
+installed:
+- Java (Only tested with Java 7 and higher)
+- Python (Only tested with Python 2.7.x and higher)
 *** Automated
+The automated method has only been tested in GNU/Linux and Mac OS
+X. It should work for other Unix operating systems. Windows users have
+to use the manual method.
 **** Via Curl
 If you're using =curl= type the following command:
 =curl -L installer.sh | sh=
@@ -25,8 +36,22 @@ If you're using =curl= type the following command:
 If you're using =wget= type:
 =wget --no-check-certificate installer.sh -O - | sh=
 *** Manual
+**** Windows
+**** *nix
+** How to use
+- Start the server with:
+=sh utils/run.sh=
+- Open Chrome or Chromium and open your Gmail account.
+- Write your email messages as you normally would.
+- Before sending them hit the Nothing to Hide black icon on the add-on
+  icon area.
+- Revise your messages and send them.
+- Shutdown the server whenever you wish or just leave it running in
+  the background.
 * Developer
-*** Dependencies
+** Contributing
+*** Building
+**** Dependencies
 - [[https://github.com/dat/pyner][Pyner]]
 - [[http://flask.pocoo.org/][Flask]]
 - [[https://github.com/dat/stanford-ner][Stanford NER]]
