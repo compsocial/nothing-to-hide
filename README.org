@@ -1,5 +1,32 @@
 * Nothing to hide
-** Dependencies
+** The Problem
+Email is [[https://en.wikipedia.org/wiki/Email_security#Privacy_concerns][not a very private method of communication.]]
+** Current Solutions
+There has been several attempts to make email securing such as using end-to-end
+encryption. Technologies such as [[https://en.wikipedia.org/wiki/GNU_Privacy_Guard][GPG]] do provide great security. But
+this and other methods of encryption have failed to gather
+traction. Without being popular the system is not very effective since
+it requires all parties involved in communication to have a special
+setup and to have create a public/private key pair. Also, many of the
+current solutions are hard to setup and configure for many
+users. Nothing to hide tries a radically different approach to
+securing email.
+** Our Solution
+Nothing to Hide attempts to make email more secure by making messages
+more vague, in such a way that the intended recipient can still
+understand the message but snoopers can't.
+** Installation
+First install our Chrome extension.
+*** Automated
+**** Via Curl
+If you're using =curl= type the following command:
+= curl -L installer.sh | sh =
+**** Via Wget
+If you're using wget type:
+= wget --no-check-certificate installer.sh -O - | sh =
+*** Manual
+* Developer
+*** Dependencies
 - [[https://github.com/dat/pyner][Pyner]]
 - [[http://flask.pocoo.org/][Flask]]
 - [[https://github.com/dat/stanford-ner][Stanford NER]]
