@@ -42,3 +42,6 @@ abstractor-server/stanford-postagger-2013-06-20
 abstractor-server/stanford-postagger
 abstractor-server/stanford-ner-2013-04-04
 abstractor-server/stanford-ner
+
+# Ignore Local DB
+abstractor-server/shelve.db
