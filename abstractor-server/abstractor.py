@@ -89,7 +89,6 @@ def abstract(text):
     wordlists = [word_tokenize(s) for s in sent_tokenize(text)]
     increment = 50.0/len(wordlists) # Calculate increment for progress bar
 
-    print "increment" + str(increment)
     for wordlist in wordlists:
         pos = st.tag(wordlist)
         count += increment
