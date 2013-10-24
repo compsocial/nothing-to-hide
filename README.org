@@ -20,10 +20,10 @@ First install our Chrome extension.
 *** Automated
 **** Via Curl
 If you're using =curl= type the following command:
-= curl -L installer.sh | sh =
+=curl -L installer.sh | sh=
 **** Via Wget
-If you're using wget type:
-= wget --no-check-certificate installer.sh -O - | sh =
+If you're using =wget= type:
+=wget --no-check-certificate installer.sh -O - | sh=
 *** Manual
 * Developer
 *** Dependencies
