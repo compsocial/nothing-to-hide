@@ -25,6 +25,7 @@ First install our Chrome extension. Also, you need the following
 installed:
 - Java (Only tested with Java 7 and higher)
 - Python (Only tested with Python 2.7.x and higher)
+- Python Pip
 *** Automated
 The automated method has only been tested in GNU/Linux and Mac OS
 X. It should work for other Unix operating systems. Windows users have
