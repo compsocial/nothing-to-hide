@@ -1,15 +1,13 @@
-install_vagueify () {
+install_nth () {
     get_dependencies
-    make_vagueify_dirs
-
 }
 
-make_vagueify_dirs () {
+make_nth_dirs () {
     printf " Making the required directories.\n$RESET"
-    mkdir -p "$VAGUEIFY_INSTALL_DIR"
-    mkdir -p "$VAGUEIFY_INSTALL_DIR/vendor" "$VAGUEIFY_INSTALL_DIR/personal"
-    mkdir -p "$VAGUEIFY_INSTALL_DIR/themes"
-    mkdir -p "$VAGUEIFY_INSTALL_DIR/savefile"
+    mkdir -p "$NTH_INSTALL_DIR"
+    mkdir -p "$NTH_INSTALL_DIR/vendor" "$NTH_INSTALL_DIR/personal"
+    mkdir -p "$NTH_INSTALL_DIR/themes"
+    mkdir -p "$NTH_INSTALL_DIR/savefile"
 }
 
 check_download() {
@@ -26,18 +24,18 @@ get_dependencies () {
     cd /tmp # move to temp dir
 
     # Get latest code from the repo
-    $DOWNLOAD_CMD $VAGUEIFY_URL
+    $DOWNLOAD_CMD $NTH_URL
     check_download
-    IFS='/' read -ra DIRS <<< "$VAGUEIFY_URL"
+    IFS='/' read -ra DIRS <<< "$NTH_URL"
     LAST_PART=${DIRS[${#DIRS[@]} - 1]}
     unzip $LAST_PART
 
     mv nothing-to-hide-master nothing-to-hide # Rename
-    mkdir -p "$VAGUEIFY_INSTALL_DIR" # Create install directory
-    mv nothing-to-hide "$VAGUEIFY_INSTALL_DIR" # Move to install directory
+    mkdir -p "$NTH_INSTALL_DIR" # Create install directory
+    mv nothing-to-hide/* "$NTH_INSTALL_DIR" # Move to install directory
 
     # Move to server directory
-    cd "$VAGUEIFY_INSTALL_DIR/nothing-to-hide/abstractor-server"
+    cd "$NTH_INSTALL_DIR/nothing-to-hide/abstractor-server"
 
     # Get the latest Stanford Tagger
     $DOWNLOAD_CMD $POSTAGGER_URL
@@ -45,6 +43,7 @@ get_dependencies () {
     IFS='/' read -ra DIRS <<< "$POSTAGGER_URL"
     LAST_PART=${DIRS[${#DIRS[@]} - 1]}
     unzip $LAST_PART
+    rm $LAST_PART # Cleanup
 
     # Get the latest Stanford Named Entity Recognizer
     $DOWNLOAD_CMD $NER_URL
@@ -52,6 +51,7 @@ get_dependencies () {
     IFS='/' read -ra DIRS <<< "$NER_URL"
     LAST_PART=${DIRS[${#DIRS[@]} - 1]}
     unzip $LAST_PART
+    rm $LAST_PART # Cleanup
 
     # Get extra necessary NLTK dependencies
     python -m nltk.downloader punkt
@@ -85,13 +85,13 @@ colors () {
 
 # Commandline args:
 # -d/--directory [dir]
-# Install prelude into the specified directory. If 'dir' is a relative path prefix it with $HOME.
+# Install nothing-to-hide into the specified directory. If 'dir' is a relative path prefix it with $HOME.
 # Defaults to '$HOME/nothing-to-hide'
 # -c/--colors
 # Enable colors
 # -s/--source [url]
-# Clone prelude from 'url'.
-# Defaults to 'https://github.com/climatewarrior/nothing-to-hide.git'
+# Fetch nothing-to-hide from 'url'.
+# Defaults to 'https://github.com/climatewarrior/nothing-to-hide/archive/master.zip'
 # -h/--help
 # Print help
 # -v/--verbose
@@ -100,11 +100,11 @@ colors () {
 usage() {
     printf "Usage: $0 [OPTION]\n"
     printf " -c, --colors \t \t \t Enable colors.\n"
-    printf " -d, --directory [dir] \t Install prelude into the specified directory.\n"
+    printf " -d, --directory [dir] \t Install nothing-to-hide into the specified directory.\n"
     printf " \t \t \t \t If 'dir' is a relative path prefix with $HOME.\n"
     printf " \t \t \t \t Defaults to $HOME/.emacs.d\n"
-    printf " -s, --source [url] \t \t Clone prelude from 'url'.\n"
-    printf " \t \t \t \t Defaults to 'https://github.com/climatewarrior/nothing-to-hide.git'.\n"
+    printf " -s, --source [url] \t \t Get nothing-to-hide from 'url'.\n"
+    printf " \t \t \t \t Defaults to 'https://github.com/climatewarrior/nothing-to-hide/archive/master.zip'.\n"
     printf " -h, --help \t \t \t Display this help and exit\n"
     printf " -v, --verbose \t \t Display verbose information\n"
     printf "\n"
@@ -115,7 +115,7 @@ while [ $# -gt 0 ]
 do
     case $1 in
         -d | --directory)
-            VAGUEIFY_INSTALL_DIR=$2
+            NTH_INSTALL_DIR=$2
             shift 2
             ;;
         -c | --colors)
@@ -123,7 +123,7 @@ do
             shift 1
             ;;
         -s | --source)
-            VAGUEIFY_URL=$2
+            NTH_URL=$2
             shift 2
             ;;
         -h | --help)
@@ -131,8 +131,8 @@ do
             exit 0
             ;;
         -v | --verbose)
-            echo "vagueify verbose $VAGUEIFY_VERBOSE"
-            VAGUEIFY_VERBOSE='true';
+            echo "nth verbose $NTH_VERBOSE"
+            NTH_VERBOSE='true';
             shift 1
             ;;
         *)
@@ -145,8 +145,8 @@ done
 POSTAGGER_URL="http://nlp.stanford.edu/software/stanford-postagger-2013-06-20.zip"
 NER_URL="http://nlp.stanford.edu/software/stanford-ner-2013-06-20.zip"
 
-[ -z $VAGUEIFY_URL ] && VAGUEIFY_URL="https://github.com/climatewarrior/nothing-to-hide/archive/master.zip"
-[ -z "$VAGUEIFY_INSTALL_DIR" ] && VAGUEIFY_INSTALL_DIR="$HOME/nothing-to-hide"
+[ -z $NTH_URL ] && NTH_URL="https://github.com/climatewarrior/nothing-to-hide/archive/master.zip"
+[ -z "$NTH_INSTALL_DIR" ] && NTH_INSTALL_DIR="$HOME/nothing-to-hide"
 
 ### Check dependencies
 printf "$CYAN Checking to see if curl or wget are installed... $RESET"
@@ -190,4 +190,4 @@ else
     exit 1
 fi
 
-install_vagueify
+install_nth
