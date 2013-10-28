@@ -23,8 +23,16 @@ make_vagueify_dirs () {
 get_dependencies () {
     # Get the latest Stanford Tagger
     $DOWNLOAD_CMD "http://nlp.stanford.edu/software/stanford-postagger-2013-06-20.zip"
+
     # Get the latest Stanford Named Entity Recognizer
     $DOWNLOAD_CMD "http://nlp.stanford.edu/software/stanford-ner-2013-06-20.zip"
+
+    # Get extra necessary NLTK dependencies
+    python -m nltk.downloader punkt
+
+    # Get abstractor server
+    pip install --user nothing-to-hide
+
 }
 
 colors () {
@@ -134,6 +142,15 @@ else
     exit 1
 fi
 
+printf "$CYAN Checking to see if pip is installed... "
+if hash pip 2>&-
+then
+    printf "$GREEN found.$RESET\n"
+else
+    printf "$RED not found. Aborting installation!$RESET\n"
+    exit 1
+fi
+
 printf "$CYAN Checking to see if Java is installed... "
 if hash java 2>&-
 then
@@ -142,3 +159,6 @@ else
     printf "$RED not found. Aborting installation!$RESET\n"
     exit 1
 fi
+
+# TODO Make it install Chrome add-on if possible.
+# or simply put in Chrome store.
