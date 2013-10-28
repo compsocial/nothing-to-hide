@@ -1,38 +1,65 @@
 install_vagueify () {
-    printf " Cloning the Prelude's GitHub repository...\n$RESET"
-    if [ x$VAGUEIFY_VERBOSE != x ]
-    then
-        /usr/bin/env git clone $VAGUEIFY_URL "$VAGUEIFY_INSTALL_DIR"
-    else
-        /usr/bin/env git clone $VAGUEIFY_URL "$VAGUEIFY_INSTALL_DIR" > /dev/null
-    fi
-    if ! [ $? -eq 0 ]
-    then
-        printf "$RED A fatal error occurred during Prelude's installation. Aborting..."
-        exit 1
-    fi
+    get_dependencies
+    make_vagueify_dirs
+
 }
 
 make_vagueify_dirs () {
     printf " Making the required directories.\n$RESET"
+    mkdir -p "$VAGUEIFY_INSTALL_DIR"
     mkdir -p "$VAGUEIFY_INSTALL_DIR/vendor" "$VAGUEIFY_INSTALL_DIR/personal"
     mkdir -p "$VAGUEIFY_INSTALL_DIR/themes"
     mkdir -p "$VAGUEIFY_INSTALL_DIR/savefile"
 }
 
+check_download() {
+    if ! [ $? -eq 0 ]
+    then
+        printf "$RED A fatal error occurred during the Nothing to Hide installation. Aborting..."
+        exit 1
+    fi
+}
+
 get_dependencies () {
+
+    printf " Fetching all dependencies...\n$RESET"
+    cd /tmp # move to temp dir
+
+    # Get latest code from the repo
+    $DOWNLOAD_CMD $VAGUEIFY_URL
+    check_download
+    IFS='/' read -ra DIRS <<< "$VAGUEIFY_URL"
+    LAST_PART=${DIRS[${#DIRS[@]} - 1]}
+    unzip $LAST_PART
+
+    mv nothing-to-hide-master nothing-to-hide # Rename
+    mkdir -p "$VAGUEIFY_INSTALL_DIR" # Create install directory
+    mv nothing-to-hide "$VAGUEIFY_INSTALL_DIR" # Move to install directory
+
+    # Move to server directory
+    cd "$VAGUEIFY_INSTALL_DIR/nothing-to-hide/abstractor-server"
+
     # Get the latest Stanford Tagger
-    $DOWNLOAD_CMD "http://nlp.stanford.edu/software/stanford-postagger-2013-06-20.zip"
+    $DOWNLOAD_CMD $POSTAGGER_URL
+    check_download
+    IFS='/' read -ra DIRS <<< "$POSTAGGER_URL"
+    LAST_PART=${DIRS[${#DIRS[@]} - 1]}
+    unzip $LAST_PART
 
     # Get the latest Stanford Named Entity Recognizer
-    $DOWNLOAD_CMD "http://nlp.stanford.edu/software/stanford-ner-2013-06-20.zip"
+    $DOWNLOAD_CMD $NER_URL
+    check_download
+    IFS='/' read -ra DIRS <<< "$NER_URL"
+    LAST_PART=${DIRS[${#DIRS[@]} - 1]}
+    unzip $LAST_PART
 
     # Get extra necessary NLTK dependencies
     python -m nltk.downloader punkt
+    check_download
 
-    # Get abstractor server
-    pip install --user nothing-to-hide
-
+    # Get Python dependencies
+    pip install --user ner flask
+    check_download
 }
 
 colors () {
@@ -104,7 +131,7 @@ do
             exit 0
             ;;
         -v | --verbose)
-            echo "prelude verbose $VAGUEIFY_VERBOSE"
+            echo "vagueify verbose $VAGUEIFY_VERBOSE"
             VAGUEIFY_VERBOSE='true';
             shift 1
             ;;
@@ -115,7 +142,10 @@ do
     esac
 done
 
-[ -z $VAGUEIFY_URL ] && VAGUEIFY_URL="https://github.com/climatewarrior/nothing-to-hide.git"
+POSTAGGER_URL="http://nlp.stanford.edu/software/stanford-postagger-2013-06-20.zip"
+NER_URL="http://nlp.stanford.edu/software/stanford-ner-2013-06-20.zip"
+
+[ -z $VAGUEIFY_URL ] && VAGUEIFY_URL="https://github.com/climatewarrior/nothing-to-hide/archive/master.zip"
 [ -z "$VAGUEIFY_INSTALL_DIR" ] && VAGUEIFY_INSTALL_DIR="$HOME/nothing-to-hide"
 
 ### Check dependencies
@@ -123,7 +153,7 @@ printf "$CYAN Checking to see if curl or wget are installed... $RESET"
 if hash curl 2>&-
 then
     printf "$GREEN found.$RESET\n"
-    DOWNLOAD_CMD="curl -C - -O"
+    DOWNLOAD_CMD="curl -LOk"
 elif hash wget 2>&-
 then
     printf "$GREEN found.$RESET\n"
@@ -160,5 +190,4 @@ else
     exit 1
 fi
 
-# TODO Make it install Chrome add-on if possible.
-# or simply put in Chrome store.
+install_vagueify
