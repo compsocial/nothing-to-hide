@@ -21,8 +21,8 @@ db = shelve.open(path.join(app.root_path, app.config['SHELVE_DB']),
 
 nerify = ner.SocketNER(host='localhost', port=9000)
 # need to move this to a more permanent location
-st = POSTagger('stanford-postagger/models/english-bidirectional-distsim.tagger',
-'stanford-postagger/stanford-postagger-3.2.0.jar')
+st = POSTagger('../stanford-postagger/models/english-bidirectional-distsim.tagger',
+               '../stanford-postagger/stanford-postagger-3.2.0.jar')
 punct = re.compile('[%s]' % re.escape(string.punctuation))
 # note these are in reverse order of use for pop() later
 altperson = collections.deque(['somebody else still', 'an individual', \
