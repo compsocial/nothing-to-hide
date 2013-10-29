@@ -1,7 +1,8 @@
 * Nothing to Hide
 ** Warning
 This project is on a very early stage of development. On same rare
-occasions it might tele-transport your computer to event horizon.
+occasions it might tele-transport your computer to event
+horizon. Also, this version only supports the English language, sorry :(
 ** The Problem
 Email is [[https://en.wikipedia.org/wiki/Email_security#Privacy_concerns][not a very private method of communication.]]
 ** Current Solutions
