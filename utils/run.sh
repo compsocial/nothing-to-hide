@@ -18,13 +18,13 @@ cd "$NER_DIR" # Move to NER_DIR
 # Run the NER server in the background
 java -mx1000m -cp "$NER_JAR" edu.stanford.nlp.ie.NERServer \
     -loadClassifier "classifiers/english.all.3class.distsim.crf.ser.gz" \
-    -port 9000 -outputFormat inlineXML > /dev/null 2>&1 &
+    -port 9000 -outputFormat inlineXML 2> ../../ner-server.log &
 
 cd - # Return to orginal dir
 cd "$FLASK_DIR" # Move to Flask Python server directory
 
 # Start the Python Flask server
-python abstractor.py > /dev/null 2>&1 &
+python abstractor.py 2> ../../flask-server.log &
 
 while :
 do
