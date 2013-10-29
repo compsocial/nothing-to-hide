@@ -44,4 +44,4 @@ abstractor-server/stanford-ner-2013-04-04
 abstractor-server/stanford-ner
 
 # Ignore Local DB
-abstractor-server/shelve.db
+abstractor-server/abstractor/shelve.db
