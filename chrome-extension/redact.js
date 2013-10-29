@@ -1,3 +1,5 @@
+"use strict";
+
 // Show the selected options
 console.log(options);
 
@@ -25,13 +27,14 @@ var progressBarHTML =
     </div></div>';
 
 // Process all messages
-var messages = $('div[aria-label="Message Body"]').toArray();
+var panes = $('div[role="dialog"]').toArray();
 
-process(messages.pop());
+process(panes.pop());
 
-function process (compose_element) {
+function process (pane) {
     // Convert into Jquery object
-    var jcompose_element = $(compose_element);
+    var jpane = $(pane)
+    var jcompose_element = jpane.find('div[aria-label="Message Body"]');
     var message_text = jcompose_element.text();
     var trimmed = message_text.replace(/^\s+|\s+$/g, '');
     var tokens = trimmed.split(' ');
@@ -68,22 +71,59 @@ function process (compose_element) {
                var serverTransforms = data;
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
-               finish(transforms, jcompose_element);
+               finish(serverTransforms, jcompose_element, jpane);
            }, "json");
 };
 
-function finish(transformations, compose_element) {
+function finish(transformations, compose_element, pane) {
     var processed = compose_element.html();
-    $.each(transformations, function(regularWord, vagueWord) {
-        processed = processed.replace(regularWord, vagueWord);
+
+    // Add extra button(s) for accepting changes
+    pane.find('div[data-tooltip="Send ‪(Ctrl-Enter)‬"]').after(function() {
+        return $(this).clone();
     });
 
+    // Change new button text
+    pane.find('div[data-tooltip="Send ‪(Ctrl-Enter)‬"]:eq(1)')
+        .text('Accept').attr('data-tooltip', 'Accept changes');
+
+    // Remove button copies, I don't know where they come from :/
+    pane.find('div[data-tooltip="Accept changes‬"]:gt(1)').remove();
+
+    // Add callback to accept changes proposed
+    pane.find('div:contains("Accept")').click(function() {
+        pane.find('div[aria-label="Message Body"] > span')
+            .replaceWith(function() {
+                // Replace with vague words, remove ☒ character
+                $(this).replaceWith($(this).text().slice(0,-1));
+            });
+    });
+
+    $.each(transformations, function(regularWord, vagueWord) {
+        // We will replace words that the server has vague versions of with this
+        var alt = '<span class="NQ" id="" aria-haspopup="true" data-tooltip='
+            + regularWord + '>' + vagueWord + '☒</span>';
+
+        // Process all the words with their alternatives
+        processed = processed.replace(regularWord, alt);
+
+    });
+
+    // Add callback for all replaced words
+    $('div[aria-label="Message Body"')
+        .delegate('span', 'click', function() {
+            $(this).replaceWith($(this).attr('data-tooltip'));
+        });
+
+    // Put on new view with transformations
     compose_element.html(processed);
 
-    var next_message = messages.pop();
+    // Get next pane, if there is one
+    var next_pane = panes.pop();
 
-    if (next_message) {
-        process(next_message);
+    // Is there another pane?
+    if (next_pane) {
+        process(next_pane); // Process next pane
     }
 
 }
