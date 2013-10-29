@@ -45,3 +45,6 @@ abstractor-server/stanford-ner
 
 # Ignore Local DB
 abstractor-server/abstractor/shelve.db
+
+#  Ignore log files
+*.log
