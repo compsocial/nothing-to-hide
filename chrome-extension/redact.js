@@ -78,7 +78,7 @@ function process (pane) {
 function finish(transformations, compose_element, pane) {
     var processed = compose_element.html();
 
-    // Add extra button(s) for accepting changes
+    // Add extra button for accepting changes
     pane.find('div[data-tooltip="Send ‪(Ctrl-Enter)‬"]').after(function() {
         return $(this).clone();
     });
@@ -87,22 +87,23 @@ function finish(transformations, compose_element, pane) {
     pane.find('div[data-tooltip="Send ‪(Ctrl-Enter)‬"]:eq(1)')
         .text('Accept').attr('data-tooltip', 'Accept changes');
 
-    // Remove button copies, I don't know where they come from :/
-    pane.find('div[data-tooltip="Accept changes‬"]:gt(1)').remove();
-
     // Add callback to accept changes proposed
-    pane.find('div:contains("Accept")').click(function() {
-        pane.find('div[aria-label="Message Body"] > span')
+    pane.find('div[data-tooltip="Accept changes"]').click(function() {
+        pane.find('div[aria-label="Message Body"]').find('span')
             .replaceWith(function() {
                 // Replace with vague words, remove ☒ character
                 $(this).replaceWith($(this).text().slice(0,-1));
             });
     });
 
+    // Remove button copies, I don't know where they come from :/
+    // pane.find('div[data-tooltip="Accept changes‬"]:gt(1)').remove();
+
+
     $.each(transformations, function(regularWord, vagueWord) {
         // We will replace words that the server has vague versions of with this
         var alt = '<span class="NQ" id="" aria-haspopup="true" data-tooltip='
-            + regularWord + '>' + vagueWord + '☒</span>';
+            + regularWord + '>' + vagueWord + ' ☒</span>';
 
         // Process all the words with their alternatives
         processed = processed.replace(regularWord, alt);
@@ -110,7 +111,7 @@ function finish(transformations, compose_element, pane) {
     });
 
     // Add callback for all replaced words
-    $('div[aria-label="Message Body"')
+    $('div[aria-label="Message Body"]')
         .delegate('span', 'click', function() {
             $(this).replaceWith($(this).attr('data-tooltip'));
         });

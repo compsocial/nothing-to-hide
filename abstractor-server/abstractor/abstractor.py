@@ -6,7 +6,6 @@ import ner
 from flask import Flask, jsonify, request, render_template
 from os import path
 from cPickle import HIGHEST_PROTOCOL
-from contextlib import closing
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag.stanford import POSTagger
 from onetfreq import top10k, top5k, top1k
@@ -20,7 +19,7 @@ db = shelve.open(path.join(app.root_path, app.config['SHELVE_DB']),
                  protocol=HIGHEST_PROTOCOL, writeback=True)
 
 nerify = ner.SocketNER(host='localhost', port=9000)
-# need to move this to a more permanent location
+
 st = POSTagger('../stanford-postagger/models/english-bidirectional-distsim.tagger',
                '../stanford-postagger/stanford-postagger-3.2.0.jar')
 punct = re.compile('[%s]' % re.escape(string.punctuation))
@@ -31,7 +30,7 @@ altloc = collections.deque(['that spot', 'that site', 'that location', \
 'there', 'that place'])
 altorg = collections.deque(['the organization'])
 altnoun = collections.deque(['that thing'])
-altverb = collections.deque(['something'])
+altverb = collections.deque(['doing something'])
 
 @app.route("/test")
 def test():
