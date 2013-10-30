@@ -9,6 +9,7 @@ from cPickle import HIGHEST_PROTOCOL
 from nltk.tokenize import word_tokenize, sent_tokenize
 from nltk.tag.stanford import POSTagger
 from onetfreq import top10k, top5k, top1k
+import code
 
 SHELVE_DB = 'shelve.db'
 
@@ -30,7 +31,9 @@ altloc = collections.deque(['that spot', 'that site', 'that location', \
 'there', 'that place'])
 altorg = collections.deque(['the organization'])
 altnoun = collections.deque(['that thing'])
+altnoun_plural = collections.deque(['those things'])
 altverb = collections.deque(['doing something'])
+altverb_past = collections.deque(['were doing something'])
 
 @app.route("/test")
 def test():
@@ -54,9 +57,9 @@ def abstractify():
     return abstract(text)
 
 def abstract(text):
-    db.setdefault('progress', 0)
+    db.setdefault('progress', 0) # Default progress is 0
     count = 0 # Just starting
-    db['progress'] = count
+    db['progress'] = count # Set current progress
 
     ne = stanfordner(text)
     transformations = {}
@@ -88,23 +91,41 @@ def abstract(text):
     wordlists = [word_tokenize(s) for s in sent_tokenize(text)]
     increment = 50.0/len(wordlists) # Calculate increment for progress bar
 
-    for wordlist in wordlists:
-        pos = st.tag(wordlist)
-        count += increment
-        db['progress'] = count # Update value for progress bar
-        for pair in pos:
-            word = pair[0]
-            postag = pair[1]
-            if not re.match(punct, word) and word.lower() not in top10k:
-                if word not in transformations:
-                    if postag.startswith('N'):
-                        transformations[word] = get_replacement(word, altnoun)
-                        print word
-                        print "noun"
-                    elif postag.startswith('VB'):
-                        transformations[word] = get_replacement(word, altverb)
-                        print word
-                        print "verb"
+    # for wordlist in wordlists:
+    #     ascii_word_list = []
+    #     for word in wordlist:
+    #         try:
+    #             word.decode('ascii')
+    #             ascii_word_list.append(word)
+    #         except UnicodeDecodeError:
+    #             print "it was not a ascii-encoded unicode string"
+    #             print word
+
+    #     pos = st.tag(ascii_word_list)
+    #     count += increment
+    #     db['progress'] = count # Update value for progress bar
+    #     #code.interact(local = locals())
+    #     for pair in pos:
+    #         word = pair[0]
+    #         postag = pair[1]
+    #         if not re.match(punct, word) and word.lower() not in top1k:
+    #             if word not in transformations:
+    #                 if postag.startswith('NNP'):
+    #                     print word
+    #                     print 'NNP'
+    #                     transformations[word] = get_replacement(word, altnoun)
+    #                 elif postag.startswith('NNPS'):
+    #                     print word
+    #                     print 'NNPS'
+    #                     transformations[word] = get_replacement(word, altnoun_plural)
+    #                 elif postag.startswith('VB'):
+    #                     print word
+    #                     print 'NNPS'
+    #                     transformations[word] = get_replacement(word, altverb)
+    #                 elif postag.startswith('VBD'):
+    #                     print word
+    #                     print 'VBD'
+    #                     transformations[word] = get_replacement(word, altverb_past)
 
     db['progress'] = 0 # Reset vale for next run
 

@@ -28,20 +28,18 @@ var progressBarHTML =
 
 // Process all messages
 var panes = $('div[role="dialog"]').toArray();
-
 process(panes.pop());
 
 function process (pane) {
-    // Convert into Jquery object
-    var jpane = $(pane)
-    var jcompose_element = jpane.find('div[aria-label="Message Body"]');
-    var message_text = jcompose_element.text();
-    var trimmed = message_text.replace(/^\s+|\s+$/g, '');
-    var tokens = trimmed.split(' ');
-    var localTransforms = commonWords(tokens, lookup, replacement);
+
+    var jpane = $(pane) // Convert into Jquery object
+    var compose_element = jpane.find('div[aria-label="Message Body"]');
+    var message_text = compose_element.text();
+    var trimmed = message_text.replace('/^\s+|\s+$/g', '');
+
 
     // Append a progress bar
-    jcompose_element.prepend(progressBarHTML);
+    compose_element.prepend(progressBarHTML);
 
     var timeout = null;
     function poll() {
@@ -69,9 +67,11 @@ function process (pane) {
                $(".vagueify-msg").hide(); // hide progress bar title message
                clearTimeout(timeout);
                var serverTransforms = data;
+               var tokens = trimmed.split(' ');
+               var localTransforms = commonWords(tokens, lookup, replacement);
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
-               finish(serverTransforms, jcompose_element, jpane);
+               finish(transforms, compose_element, jpane);
            }, "json");
 };
 
@@ -135,8 +135,9 @@ function commonWords(tokens, lookup, replacement) {
     for (var i = 0; i < tokens.length; i++) {
         var t = tokens[i].toLowerCase();
 
-        // Found a match
-        if (lookup[t] != null) {
+        var patt=/[0-9]/;
+
+        if (lookup[t] == null && t.length > 4 && !patt.test(t)) {
             if (options.redactEntire == "yes")
                 transformations[tokens[i]] = replacement;
             else
