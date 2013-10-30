@@ -6,14 +6,14 @@ console.log(options);
 // config based on options
 var replacement = "+";
 if (options.redactionStyle == "blackout")
-    replacement =
+    var replacement =
     "<span style='background-color: black; color: black;'>[redacted]</span>";
 
 var lookup = top10k;
 if (options.distCutoff == "5k")
-    lookup = top5k;
+    var lookup = top5k;
 else if (options.distCutoff == "1k")
-    lookup = top1k;
+    var lookup = top1k;
 
 var abstractifyAPI = "http://127.0.0.1:5000/";
 var abstractify = abstractifyAPI + "abstractify";
@@ -35,8 +35,11 @@ function process (pane) {
     var jpane = $(pane) // Convert into Jquery object
     var compose_element = jpane.find('div[aria-label="Message Body"]');
     var message_text = compose_element.text();
-    var trimmed = message_text.replace('/^\s+|\s+$/g', '');
-
+    console.log("Original Message");
+    console.log(message_text);
+    var trimmed = message_text.replace(/^\s+|\s+$/g, '');
+    console.log('Trimmed')
+    console.log(trimmed)
 
     // Append a progress bar
     compose_element.prepend(progressBarHTML);
@@ -67,10 +70,18 @@ function process (pane) {
                $(".vagueify-msg").hide(); // hide progress bar title message
                clearTimeout(timeout);
                var serverTransforms = data;
-               var tokens = trimmed.split(' ');
+               var tokens = trimmed.split(/[\n ,]+/);
+               console.log("Tokens");
+               console.log(tokens);
                var localTransforms = commonWords(tokens, lookup, replacement);
-               var transforms = $.extend(true, {}, serverTransforms,
-                                         localTransforms);
+               var transforms = $.extend(true, {}, localTransforms,
+                                         serverTransforms);
+               console.log("Local transforms");
+               console.log(localTransforms);
+               console.log("server transforms");
+               console.log(serverTransforms);
+               console.log("Transforms");
+               console.log(transforms);
                finish(transforms, compose_element, jpane);
            }, "json");
 };
@@ -135,9 +146,9 @@ function commonWords(tokens, lookup, replacement) {
     for (var i = 0; i < tokens.length; i++) {
         var t = tokens[i].toLowerCase();
 
-        var patt=/[0-9]/;
+        var patt=/[^'a-zA-Z:]/;
 
-        if (lookup[t] == null && t.length > 4 && !patt.test(t)) {
+        if (lookup[t] == null && t.length > 3 && !patt.test(t)) {
             if (options.redactEntire == "yes")
                 transformations[tokens[i]] = replacement;
             else
