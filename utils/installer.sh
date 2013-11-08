@@ -1,13 +1,7 @@
+#!/bin/bash
+
 install_nth () {
     get_dependencies
-}
-
-make_nth_dirs () {
-    printf " Making the required directories.\n$RESET"
-    mkdir -p "$NTH_INSTALL_DIR"
-    mkdir -p "$NTH_INSTALL_DIR/vendor" "$NTH_INSTALL_DIR/personal"
-    mkdir -p "$NTH_INSTALL_DIR/themes"
-    mkdir -p "$NTH_INSTALL_DIR/savefile"
 }
 
 check_download() {
@@ -30,12 +24,10 @@ get_dependencies () {
     LAST_PART=${DIRS[${#DIRS[@]} - 1]}
     unzip $LAST_PART
 
-    mv nothing-to-hide-master nothing-to-hide # Rename
-    mkdir -p "$NTH_INSTALL_DIR" # Create install directory
-    mv nothing-to-hide/* "$NTH_INSTALL_DIR" # Move to install directory
+    mv nothing-to-hide-master "$NTH_INSTALL_DIR" # Move to install director
 
     # Move to server directory
-    cd "$NTH_INSTALL_DIR/nothing-to-hide/abstractor-server"
+    cd "$NTH_INSTALL_DIR/abstractor-server"
 
     # Get the latest Stanford Tagger
     $DOWNLOAD_CMD $POSTAGGER_URL

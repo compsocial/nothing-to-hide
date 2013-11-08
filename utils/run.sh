@@ -9,9 +9,9 @@ kill_em_all() {
 trap 'kill_em_all' INT
 
 # Start the NER server
-NER_DIR="abstractor-server/stanford-ner-2013-04-04"
+NER_DIR="abstractor-server/stanford-ner-2013-06-20"
 FLASK_DIR="abstractor-server/abstractor"
-NER_JAR="stanford-ner-2013-04-04.jar"
+NER_JAR="stanford-ner-2013-06-20.jar"
 
 cd "$NER_DIR" # Move to NER_DIR
 
