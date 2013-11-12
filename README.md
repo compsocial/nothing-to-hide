@@ -47,9 +47,13 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 ```
 
 ### Manual
-####Windows
-####\*nix
-
+1. Download the latest [Stanford NER](http://nlp.stanford.edu/software/CRF-NER.shtml)
+2. Download the latest [Stanford Postagger](http://nlp.stanford.edu/software/tagger.shtml)
+3. Get extra NTLK dependencies `python -m nltk.downloader punkt`
+4. Install Flask and Pyner `pip install flask ner`
+5. Get the [latest version of our code](https://github.com/climatewarrior/nothing-to-hide/archive/master.zip)
+6. Uncompress Stanford NER and Stanford Postagger into the `anstractor-server` directory within Nothing to Hide.
+7. See [run.sh](https://github.com/climatewarrior/nothing-to-hide/blob/master/utils/run.sh) to how to start your servers manually.
 ## How to use
 1.  `cd` to the install directory, the default one is `~/nothing-to-hide`.
 2.  Start the server with: `bash utils/run.sh`.

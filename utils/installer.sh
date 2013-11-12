@@ -13,7 +13,6 @@ check_download() {
 }
 
 get_dependencies () {
-
     printf " Fetching all dependencies...\n$RESET"
     cd /tmp # move to temp dir
 
