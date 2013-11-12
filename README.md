@@ -65,8 +65,8 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 ### Building
 ####  Dependencies
 
-    -   [Pyner](https://github.com/dat/pyner)
-    -   [Flask](http://flask.pocoo.org/)
-    -   [Stanford NER](https://github.com/dat/stanford-ner)
-    -   [Stanford Tagger](http://nlp.stanford.edu/software/tagger.shtml)
-    -   [NLTK](https://pypi.python.org/pypi/nltk/2.0.1)
+-   [Pyner](https://github.com/dat/pyner)
+-   [Flask](http://flask.pocoo.org/)
+-   [Stanford NER](https://github.com/dat/stanford-ner)
+-   [Stanford Tagger](http://nlp.stanford.edu/software/tagger.shtml)
+-   [NLTK](https://pypi.python.org/pypi/nltk/2.0.1)
