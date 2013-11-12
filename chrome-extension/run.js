@@ -1,34 +1,65 @@
 "use strict";
 
-// Show the selected options
-console.log(options);
+$( document ).ready(function() {
 
-// config based on options
-var replacement = "+";
-if (options.redactionStyle == "blackout")
-    var replacement =
-    "<span style='background-color: black; color: black;'>[redacted]</span>";
+    // Create duplicate of compose button
+    $("div[class='z0'] div:contains('COMPOSE')").after(function() {
+        return $(this).clone();
+    });
 
-var lookup = top10k;
-if (options.distCutoff == "5k")
-    var lookup = top5k;
-else if (options.distCutoff == "1k")
-    var lookup = top1k;
+    // Change new button text
+    $("div[class='z0'] div:contains('COMPOSE'):eq(1)").text('VAGUE-IFY');
 
-var abstractifyAPI = "http://127.0.0.1:5000/";
-var abstractify = abstractifyAPI + "abstractify";
-var progress = abstractifyAPI + "get_progress";
+    $("div[class='z0'] div:contains('VAGUE-IFY')").click(function() {
+        chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
+            init(response.options);
+        });
+    });
 
-var progressBarHTML =
-    '<div class="vagueify-msg" style="text-align:center; font-weight:bold;"> \
-    Vaguefying message…</div> \
-    <div class="lpb" style="width=100%;"> \
-    <div id="lpt" class="vprogress"style="width: 10%;"> \
-    </div></div>';
+});
 
-// Process all messages
-var panes = $('div[role="dialog"]').toArray();
-process(panes.pop());
+// Globals
+var replacement;
+var lookup;
+var abstractifyAPI;
+var abstractify;
+var progress;
+var progressBarHTML;
+var panes;
+
+function init(options) {
+
+    // Show the selected options
+    console.log(options);
+
+    // config based on options
+    replacement = "+";
+    if (options.redactionStyle == "blackout")
+        replacement =
+        "<span style='background-color: black; color: black;'>[redacted]</span>";
+
+    lookup = top10k;
+    if (options.distCutoff == "5k")
+        lookup = top5k;
+    else if (options.distCutoff == "1k")
+        lookup = top1k;
+
+    abstractifyAPI = "http://127.0.0.1:5000/";
+    abstractify = abstractifyAPI + "abstractify";
+    progress = abstractifyAPI + "get_progress";
+
+    progressBarHTML =
+        '<div class="vagueify-msg" style="text-align:center; font-weight:bold;"> \
+Vaguefying message…</div> \
+<div class="lpb" style="width=100%;"> \
+<div id="lpt" class="vprogress"style="width: 10%;"> \
+</div></div>';
+
+    // Process all messages
+    panes = $('div[role="dialog"]').toArray();
+    process(panes.pop());
+
+}
 
 function process (pane) {
 
