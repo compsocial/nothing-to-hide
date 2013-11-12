@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 kill_em_all() {
     echo "(CTRL+C was hit)"

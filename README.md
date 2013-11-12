@@ -38,12 +38,12 @@ to use the manual method.
 ####  Via Curl
 If you're using `curl` type the following command:
 ```bash
-curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | sh
+curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | bash
 ```
 #### Via Wget
 If you're using `wget` type:
 ```bash
-wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | sh
+wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | bash
 ```
 
 ### Manual
@@ -51,7 +51,7 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 ####\*nix
 
 ## How to use
-1.   Start the server with: `sh utils/run.sh`
+1.   Start the server with: `bash utils/run.sh`
 2.  Open Chrome or Chromium and open your Gmail account.
 3.  Write your email messages as you normally would.
 4.   Before sending them hit the Nothing to Hide black icon on the add-on
