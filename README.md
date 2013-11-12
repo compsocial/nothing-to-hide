@@ -51,13 +51,14 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 ####\*nix
 
 ## How to use
-1.  Start the server with: `bash utils/run.sh`
-2.  Open Chrome or Chromium and open your Gmail account.
-3.  Write your email messages as you normally would.
-4.  Before sending them hit the VAGUE-IFY button below the compose button.
-5.  Revise your messages. You can click on change words to bring them to their original form.
-6.  When you are happy with your changes click Accept on the compose window.
-6.  Shutdown the server whenever you wish or just leave it running in
+1.  `cd` to the install directory, the default one is `~/nothing-to-hide`.
+2.  Start the server with: `bash utils/run.sh`.
+3.  Open Chrome or Chromium and open your Gmail account.
+4.  Write your email messages as you normally would.
+5.  Before sending them hit the VAGUE-IFY button below the compose button.
+6.  Revise your messages. You can click on change words to bring them to their original form.
+7.  When you are happy with your changes click Accept on the compose window.
+8.  Shutdown the server whenever you wish or just leave it running in
     the background.
 
 # Developer
