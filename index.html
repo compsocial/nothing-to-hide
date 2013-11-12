@@ -99,18 +99,25 @@ to use the manual method.</p>
 <h3>
 <a name="manual" class="anchor" href="#manual"><span class="octicon octicon-link"></span></a>Manual</h3>
 
-<h4>
-<a name="windows" class="anchor" href="#windows"><span class="octicon octicon-link"></span></a>Windows</h4>
-
-<h4>
-<a name="nix" class="anchor" href="#nix"><span class="octicon octicon-link"></span></a>*nix</h4>
-
-<h2>
+<ol>
+<li>Download the latest <a href="http://nlp.stanford.edu/software/CRF-NER.shtml">Stanford NER</a>
+</li>
+<li>Download the latest <a href="http://nlp.stanford.edu/software/tagger.shtml">Stanford Postagger</a>
+</li>
+<li>Get extra NTLK dependencies <code>python -m nltk.downloader punkt</code>
+</li>
+<li>Install Flask and Pyner <code>pip install flask ner</code>
+</li>
+<li>Get the <a href="https://github.com/climatewarrior/nothing-to-hide/archive/master.zip">latest version of our code</a>
+</li>
+<li>Uncompress Stanford NER and Stanford Postagger into the <code>anstractor-server</code> directory within Nothing to Hide.</li>
+<li>See <a href="https://github.com/climatewarrior/nothing-to-hide/blob/master/utils/run.sh">run.sh</a> to how to start your servers manually.</li>
+</ol><h2>
 <a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
 
 <ol>
-<li> Start the server with: <code>bash utils/run.sh</code>
-</li>
+<li> <code>cd</code> to the install directory, the default one is <code>~/nothing-to-hide</code>.</li>
+<li> Start the server with: <code>bash utils/run.sh</code>.</li>
 <li> Open Chrome or Chromium and open your Gmail account.</li>
 <li> Write your email messages as you normally would.</li>
 <li> Before sending them hit the VAGUE-IFY button below the compose button.</li>
