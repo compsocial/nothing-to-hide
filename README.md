@@ -34,15 +34,22 @@ First install our [Chrome extension](https://chrome.google.com/webstore/detail/k
 The automated method has only been tested in GNU/Linux and Mac OS
 X. It should work for other Unix operating systems. Windows users have
 to use the manual method.
+
 1.  Via Curl
     If you're using `curl` type the following command:
-    `curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | sh`
+    ```bash
+    curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | sh
+    ```
 2.  Via Wget
     If you're using `wget` type:
-    `wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | sh`
+    ```bash
+    wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | sh
+    ```
+
 ### Manual
 1.  Windows
 2.  \*nix
+
 ## How to use
 -   Start the server with: `sh utils/run.sh`
 -   Open Chrome or Chromium and open your Gmail account.
@@ -52,6 +59,7 @@ to use the manual method.
 -   Revise your messages and send them.
 -   Shutdown the server whenever you wish or just leave it running in
     the background.
+
 # Developer
 ## Contributing
 ### Building
