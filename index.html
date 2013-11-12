@@ -32,7 +32,14 @@
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
         <h1>
-<a name="nothing-to-hide" class="anchor" href="#nothing-to-hide"><span class="octicon octicon-link"></span></a>Nothing to hide</h1>
+<a name="nothing-to-hide" class="anchor" href="#nothing-to-hide"><span class="octicon octicon-link"></span></a>Nothing to Hide</h1>
+
+<h2>
+<a name="warning" class="anchor" href="#warning"><span class="octicon octicon-link"></span></a>Warning</h2>
+
+<p>This project is on the very early stages of development. On same rare
+occasions it might tele-transport your computer to event
+horizon. Also, this version only supports the English language, sorry :(</p>
 
 <h2>
 <a name="the-problem" class="anchor" href="#the-problem"><span class="octicon octicon-link"></span></a>The Problem</h2>
@@ -42,51 +49,89 @@
 <h2>
 <a name="current-solutions" class="anchor" href="#current-solutions"><span class="octicon octicon-link"></span></a>Current Solutions</h2>
 
-<p>There has been several attempts to make email securing such as using end-to-end
-encryption. Technologies such as <a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> do provide great security. But
-this and other methods of encryption have failed to gather
-traction. Without being popular the system is not very effective since
+<p>There has been several attempts to make email more secure such as using end-to-end
+encryption. Some technologies, such as <a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> do provide great security.
+But this and other methods of encryption have failed to gather
+traction. Without being popular, the system is not very effective since
 it requires all parties involved in communication to have a special
-setup and to have create a public/private key pair. Also, many of the
-current solutions are hard to setup and configure for many
-users. Nothing to hide tries a radically different approach to
-securing email.</p>
+setup. Also, many of the current solutions are hard to setup and configure for many
+users. Nothing to Hide tries a radically different approach to securing email.</p>
 
 <h2>
 <a name="our-solution" class="anchor" href="#our-solution"><span class="octicon octicon-link"></span></a>Our Solution</h2>
 
 <p>Nothing to Hide attempts to make email more secure by making messages
 more vague, in such a way that the intended recipient can still
-understand the message but snoopers can't.</p>
+understand the message but snoopers can't. In it's current form it
+only available as <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a> and <a href="http://www.chromium.org/Home">Chromium</a> add-on for <a href="https://mail.google.com">Gmail</a>. A
+<a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> version of the add-on is on the works.</p>
 
 <h2>
 <a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
 
-<p>First install our Chrome extension.</p>
+<p>First install our <a href="https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe/publish-accepted">Chrome extension</a>. Also, you need the following installed:</p>
 
-<h3>
+<ul>
+<li>  <a href="http://openjdk.java.net/">Java</a> (Only tested with Java 7 and higher)</li>
+<li>  <a href="http://python.org/">Python</a> (Only tested with Python 2.7.x and higher)</li>
+<li>  <a href="https://pypi.python.org/pypi/pip/">pip</a> (Only tested with 1.4.x and higher) How to install pip on
+  <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows">Windows</a> and <a href="http://docs.python-guide.org/en/latest/starting/install/osx/">Mac OS X.</a> Ubuntu users run <code>sudo apt-get install python-pip</code>.</li>
+</ul><h3>
 <a name="automated" class="anchor" href="#automated"><span class="octicon octicon-link"></span></a>Automated</h3>
+
+<p>The automated method has only been tested in GNU/Linux and Mac OS
+X. It should work for other Unix operating systems. Windows users have
+to use the manual method.</p>
 
 <h4>
 <a name="via-curl" class="anchor" href="#via-curl"><span class="octicon octicon-link"></span></a>Via Curl</h4>
 
-<p>If you're using <code>curl</code> type the following command:
-<code>curl -L installer.sh | sh</code></p>
+<p>If you're using <code>curl</code> type the following command:</p>
+
+<div class="highlight highlight-bash"><pre>curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | sh
+</pre></div>
 
 <h4>
 <a name="via-wget" class="anchor" href="#via-wget"><span class="octicon octicon-link"></span></a>Via Wget</h4>
 
-<p>If you're using <code>wget</code> type:
-<code>wget --no-check-certificate installer.sh -O - | sh</code></p>
+<p>If you're using <code>wget</code> type:</p>
+
+<div class="highlight highlight-bash"><pre>wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | sh
+</pre></div>
 
 <h3>
 <a name="manual" class="anchor" href="#manual"><span class="octicon octicon-link"></span></a>Manual</h3>
 
-<h1>
+<h4>
+<a name="windows" class="anchor" href="#windows"><span class="octicon octicon-link"></span></a>Windows</h4>
+
+<h4>
+<a name="nix" class="anchor" href="#nix"><span class="octicon octicon-link"></span></a>*nix</h4>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
+
+<ol>
+<li>  Start the server with: <code>sh utils/run.sh</code>
+</li>
+<li> Open Chrome or Chromium and open your Gmail account.</li>
+<li> Write your email messages as you normally would.</li>
+<li>  Before sending them hit the Nothing to Hide black icon on the add-on
+ icon area.</li>
+<li>  Revise your messages and send them.</li>
+<li>  Shutdown the server whenever you wish or just leave it running in
+the background.</li>
+</ol><h1>
 <a name="developer" class="anchor" href="#developer"><span class="octicon octicon-link"></span></a>Developer</h1>
 
+<h2>
+<a name="contributing" class="anchor" href="#contributing"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
 <h3>
-<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h3>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h3>
+
+<h4>
+<a name="dependencies" class="anchor" href="#dependencies"><span class="octicon octicon-link"></span></a>Dependencies</h4>
 
 <ul>
 <li>  <a href="https://github.com/dat/pyner">Pyner</a>
