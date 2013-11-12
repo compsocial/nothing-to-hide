@@ -1,6 +1,6 @@
 {
   "name": "Vague-ify",
-  "version": "2.0",
+  "version": "2.1",
   "permissions": [
     "activeTab",
     "http://127.0.0.1:5000/"
