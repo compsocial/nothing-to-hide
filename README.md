@@ -64,6 +64,7 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 ## Contributing
 ### Building
 ####  Dependencies
+
     -   [Pyner](https://github.com/dat/pyner)
     -   [Flask](http://flask.pocoo.org/)
     -   [Stanford NER](https://github.com/dat/stanford-ner)
