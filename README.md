@@ -35,13 +35,13 @@ The automated method has only been tested in GNU/Linux and Mac OS
 X. It should work for other Unix operating systems. Windows users have
 to use the manual method.
 
--  Via Curl
-    If you're using `curl` type the following command:
+####  Via Curl
+If you're using `curl` type the following command:
 ```bash
 curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | sh
 ```
--  Via Wget
-    If you're using `wget` type:
+#### Via Wget
+If you're using `wget` type:
 ```bash
 wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | sh
 ```
@@ -63,7 +63,7 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 # Developer
 ## Contributing
 ### Building
-1.  Dependencies
+####  Dependencies
     -   [Pyner](https://github.com/dat/pyner)
     -   [Flask](http://flask.pocoo.org/)
     -   [Stanford NER](https://github.com/dat/stanford-ner)
