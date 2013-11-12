@@ -13,13 +13,13 @@
     "content_scripts": [
         {
             "matches": ["https://mail.google.com/*"],
-            "js": ["jquery.js", "dict.js", "redact.js", "run.js"]
+            "js": ["jquery.js", "dict.js", "run.js"]
         }
     ],
     "browser_action": {
         "default_title": "Redact your Gmail",
         "default_icon": "redact_16x16.png"
     },
-    "web_accessible_resources": ["jquery.js", "dict.js", "redact.js", "run.js"],
+    "web_accessible_resources": ["jquery.js", "dict.js", "run.js"],
     "manifest_version": 2
 }
