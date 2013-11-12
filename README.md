@@ -23,7 +23,7 @@ only available as [Google Chrome](https://www.google.com/intl/en/chrome/browser/
 
 ## Installation
 
-First install our [Chrome extension](https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe/publish-accepted). Also, you need the following installed:
+First install our [Chrome extension](https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe). Also, you need the following installed:
 
 -   [Java](http://openjdk.java.net/) (Only tested with Java 7 and higher)
 -   [Python](http://python.org/) (Only tested with Python 2.7.x and higher)
