@@ -109,8 +109,8 @@ function process (pane) {
                var localTransforms = commonWords(tokens, lookup, replacement);
                console.log("Data");
                console.log(serverTransforms);
-               var transforms = $.extend(true, {}, localTransforms,
-                                         serverTransforms);
+               var transforms = $.extend(true, {}, serverTransforms,
+                                         localTransforms);
                console.log("Local transforms");
                console.log(localTransforms);
                console.log("server transforms");
