@@ -44,10 +44,6 @@ get_dependencies () {
     unzip $LAST_PART
     rm $LAST_PART # Cleanup
 
-    # Get extra necessary NLTK dependencies
-    python -m nltk.downloader punkt
-    check_download
-
     # Get Python dependencies
 
     # Check if Python was installed with Homebrew. This matter due to a bug
@@ -61,6 +57,10 @@ get_dependencies () {
         # Install flask and ner normally
         pip install --user ner flask
     fi
+    check_download
+
+    # Get extra necessary NLTK dependencies
+    python -m nltk.downloader punkt
     check_download
 }
 
