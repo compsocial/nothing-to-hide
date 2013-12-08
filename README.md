@@ -25,8 +25,8 @@ only available as [Google Chrome](https://www.google.com/intl/en/chrome/browser/
 
 First install our [Chrome extension](https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe). Also, you need the following installed:
 
--   [Java](http://openjdk.java.net/) (Only tested with Java 7 and higher)
--   [Python](http://python.org/) (Only tested with Python 2.7.x and higher)
+-   [Java](http://openjdk.java.net/) (Only tested with Java 1.6 and higher)
+-   [Python](http://python.org/) (Only tested with Python 2.6.x and higher)
 -   [pip](https://pypi.python.org/pypi/pip/) (Only tested with 1.4.x and higher) How to install pip on
       [Windows](http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows) and [Mac OS X.](http://docs.python-guide.org/en/latest/starting/install/osx/) Ubuntu users run `sudo apt-get install python-pip`.
 
