@@ -50,14 +50,14 @@ get_dependencies () {
 
     # Get Python dependencies
 
-    # Check if Python was installed with Homebrew. This matter due to a bug 
+    # Check if Python was installed with Homebrew. This matter due to a bug
     # with the --user option in pip install --user.
     if [ $(readlink $(which python) | grep -e "Cellar") ]
-      then 
-        # Python was installed using Homebrew. Install flask and ner with a 
-        # special prefix 
+      then
+        # Python was installed using Homebrew. Install flask and ner with a
+        # special prefix
         pip install --user --install-option="--prefix=" ner flask
-      else 
+      else
         # Install flask and ner normally
         pip install --user ner flask
     fi

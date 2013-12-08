@@ -1,5 +1,15 @@
 "use strict";
 
+// Globals
+var replacement;
+var lookup;
+var abstractifyAPI;
+var abstractify;
+var progress;
+var progressBarHTML;
+var panes;
+var options;
+
 $( document ).ready(function() {
 
     // Create duplicate of compose button
@@ -12,22 +22,14 @@ $( document ).ready(function() {
 
     $("div[class='z0'] div:contains('VAGUE-IFY')").click(function() {
         chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
-            init(response.options);
+            options = response.options;
+            init();
         });
     });
 
 });
 
-// Globals
-var replacement;
-var lookup;
-var abstractifyAPI;
-var abstractify;
-var progress;
-var progressBarHTML;
-var panes;
-
-function init(options) {
+function init() {
 
     // Show the selected options
     console.log(options);
@@ -63,14 +65,14 @@ Vaguefying message…</div> \
 
 function process (pane) {
 
-    var jpane = $(pane) // Convert into Jquery object
+    var jpane = $(pane); // Convert into Jquery object
     var compose_element = jpane.find('div[aria-label="Message Body"]');
     var message_text = compose_element.text();
     console.log("Original Message");
     console.log(message_text);
     var trimmed = message_text.replace(/^\s+|\s+$/g, '');
-    console.log('Trimmed')
-    console.log(trimmed)
+    console.log('Trimmed');
+    console.log(trimmed);
 
     // Append a progress bar
     compose_element.prepend(progressBarHTML);
@@ -105,6 +107,8 @@ function process (pane) {
                console.log("Tokens");
                console.log(tokens);
                var localTransforms = commonWords(tokens, lookup, replacement);
+               console.log("Data");
+               console.log(serverTransforms);
                var transforms = $.extend(true, {}, localTransforms,
                                          serverTransforms);
                console.log("Local transforms");

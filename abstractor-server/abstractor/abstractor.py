@@ -133,7 +133,7 @@ def abstract(text):
                     #     print 'VBD'
                     #     transformations[word] = get_replacement(word, altverb_past)
 
-    db['progress'] = 0 # Reset vale for next run
+    db['progress'] = 0 # Reset value for next run
 
     return jsonify(transformations)
 
