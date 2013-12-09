@@ -1,14 +1,22 @@
 "use strict";
 
 // Globals
-var replacement;
-var lookup;
-var abstractifyAPI;
-var abstractify;
-var progress;
-var progressBarHTML;
-var panes;
-var options;
+var options; // Global options object
+var replacement; // Replacement option
+var lookup; //Words lookup option
+
+var abstractifyAPI = "http://127.0.0.1:5000/";
+var abstractify = abstractifyAPI + "abstractify";
+var progress = abstractifyAPI + "get_progress";
+
+var progressBarHTML =
+  '<div class="vagueify-msg" style="text-align:center; font-weight:bold;"> \
+Vaguefying message…</div> \
+<div class="lpb" style="width=100%;"> \
+<div id="lpt" class="vprogress"style="width: 10%;"> \
+</div></div>';
+
+var panes; // Open message panes
 
 $( document ).ready(function() {
 
@@ -26,7 +34,6 @@ $( document ).ready(function() {
             init();
         });
     });
-
 });
 
 function init() {
@@ -46,20 +53,9 @@ function init() {
     else if (options.distCutoff == "1k")
         lookup = top1k;
 
-    abstractifyAPI = "http://127.0.0.1:5000/";
-    abstractify = abstractifyAPI + "abstractify";
-    progress = abstractifyAPI + "get_progress";
-
-    progressBarHTML =
-        '<div class="vagueify-msg" style="text-align:center; font-weight:bold;"> \
-Vaguefying message…</div> \
-<div class="lpb" style="width=100%;"> \
-<div id="lpt" class="vprogress"style="width: 10%;"> \
-</div></div>';
-
     // Process all messages
     panes = $('div[role="dialog"]').toArray();
-    process(panes.pop());
+    process(panes.pop()); // Process the next one
 
 }
 
@@ -104,13 +100,11 @@ function process (pane) {
                clearTimeout(timeout);
                var serverTransforms = data;
                var tokens = trimmed.split(/[\n ,]+/);
-               console.log("Tokens");
-               console.log(tokens);
-               var localTransforms = commonWords(tokens, lookup, replacement);
-               console.log("Data");
-               console.log(serverTransforms);
+               var localTransforms = commonWords(tokens);
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
+               console.log("Tokens");
+               console.log(tokens);
                console.log("Local transforms");
                console.log(localTransforms);
                console.log("server transforms");
@@ -175,7 +169,7 @@ function finish(transformations, compose_element, pane) {
 
 }
 
-function commonWords(tokens, lookup, replacement) {
+function commonWords(tokens) {
     var transformations = {};
 
     for (var i = 0; i < tokens.length; i++) {

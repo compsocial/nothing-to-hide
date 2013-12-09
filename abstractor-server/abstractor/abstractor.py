@@ -93,7 +93,7 @@ def abstract(text):
     increment = 50.0/len(wordlists) # Calculate increment for progress bar
 
     # Randomly reduce wordlists, we want to make this faster
-    wordlists = random.sample(wordlists, len(wordlists)/3)
+    wordlists = random.sample(wordlists, len(wordlists)/2)
 
     print transformations
 

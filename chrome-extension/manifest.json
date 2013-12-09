@@ -17,7 +17,7 @@
     }
   ],
   "browser_action": {
-    "default_title": "Redact your Gmail",
+    "default_title": "Vague-ify Options",
     "default_icon": "redact_16x16.png"
   },
   "web_accessible_resources": ["jquery-2.0.3.js", "dict.js", "run.js"],
