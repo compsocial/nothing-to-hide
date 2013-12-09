@@ -1,35 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Nothing-to-hide by climatewarrior</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
+
+    <title>Nothing-to-hide by climatewarrior</title>
   </head>
+
   <body>
-    <div class="wrapper">
-      <header>
+    <header>
+      <div class="inner">
         <h1>Nothing-to-hide</h1>
-        <p>A radically different approach to email privacy.</p>
+        <h2>A radically different approach to email privacy.</h2>
+        <a href="https://github.com/climatewarrior/nothing-to-hide" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
 
-        <p class="view"><a href="https://github.com/climatewarrior/nothing-to-hide">View the Project on GitHub <small>climatewarrior/nothing-to-hide</small></a></p>
-
-
-        <ul>
-          <li><a href="https://github.com/climatewarrior/nothing-to-hide/zipball/master">Download <strong>ZIP File</strong></a></li>
-          <li><a href="https://github.com/climatewarrior/nothing-to-hide/tarball/master">Download <strong>TAR Ball</strong></a></li>
-          <li><a href="https://github.com/climatewarrior/nothing-to-hide">View On <strong>GitHub</strong></a></li>
-        </ul>
-      </header>
-      <section>
-        <h1>
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>
 <a name="nothing-to-hide" class="anchor" href="#nothing-to-hide"><span class="octicon octicon-link"></span></a>Nothing to Hide</h1>
+
+<p><img src="https://raw.github.com/climatewarrior/nothing-to-hide/master/recorded.gif" alt="Demo"></p>
 
 <h2>
 <a name="warning" class="anchor" href="#warning"><span class="octicon octicon-link"></span></a>Warning</h2>
@@ -46,8 +48,9 @@ horizon. Also, this version only supports the English language, sorry :(</p>
 <h2>
 <a name="current-solutions" class="anchor" href="#current-solutions"><span class="octicon octicon-link"></span></a>Current Solutions</h2>
 
-<p>There has been several attempts to make email more secure, like using end-to-end
-encryption. Some technologies, such as <a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> do provide great security. But this and other methods of encryption have failed to gather
+<p>There has been several attempts to make email more secure such as using end-to-end
+encryption. Some technologies, such as <a href="https://en.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> do provide great security.
+But this and other methods of encryption have failed to gather
 traction. Without being popular, the system is not very effective since
 it requires all parties involved in communication to have a special
 setup. Also, many of the current solutions are hard to setup and configure for many
@@ -58,8 +61,8 @@ users. Nothing to Hide tries a radically different approach to securing email.</
 
 <p>Nothing to Hide attempts to make email more secure by making messages
 more vague, in such a way that the intended recipient can still
-understand the message but snoopers can't. In it's current form, it is
-only available as a <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a> and <a href="http://www.chromium.org/Home">Chromium</a> add-on for <a href="https://mail.google.com">Gmail</a>. A
+understand the message but snoopers can't. In it's current form it
+only available as <a href="https://www.google.com/intl/en/chrome/browser/">Google Chrome</a> and <a href="http://www.chromium.org/Home">Chromium</a> add-on for <a href="https://mail.google.com">Gmail</a>. A
 <a href="https://www.mozilla.org/en-US/firefox/new/">Firefox</a> version of the add-on is on the works.</p>
 
 <h2>
@@ -68,9 +71,10 @@ only available as a <a href="https://www.google.com/intl/en/chrome/browser/">Goo
 <p>First install our <a href="https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe">Chrome extension</a>. Also, you need the following installed:</p>
 
 <ul>
-<li>  <a href="http://openjdk.java.net/">Java</a> (Only tested with Java 7 and higher)</li>
-<li>  <a href="http://python.org/">Python</a> (Only tested with Python 2.7.x and higher)</li>
-<li>  <a href="https://pypi.python.org/pypi/pip/">pip</a> (Only tested with 1.4.x and higher) Learn how to install <code>pip</code> on <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows">Windows</a> and <a href="http://docs.python-guide.org/en/latest/starting/install/osx/">Mac OS X</a>. Ubuntu users can run <code>sudo apt-get install python-pip</code>.</li>
+<li>  <a href="http://openjdk.java.net/">Java</a> (Only tested with Java 1.6 and higher)</li>
+<li>  <a href="http://python.org/">Python</a> (Only tested with Python 2.6.x and higher)</li>
+<li>  <a href="https://pypi.python.org/pypi/pip/">pip</a> (Only tested with 1.4.x and higher) How to install pip on
+  <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows">Windows</a> and <a href="http://docs.python-guide.org/en/latest/starting/install/osx/">Mac OS X.</a> Ubuntu users run <code>sudo apt-get install python-pip</code>.</li>
 </ul><h3>
 <a name="automated" class="anchor" href="#automated"><span class="octicon octicon-link"></span></a>Automated</h3>
 
@@ -83,7 +87,7 @@ to use the manual method.</p>
 
 <p>If you're using <code>curl</code> type the following command:</p>
 
-<div class="highlight highlight-bash"><pre>curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | bash
+<div class="highlight highlight-bash"><pre>curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh <span class="p">|</span> bash
 </pre></div>
 
 <h4>
@@ -91,7 +95,7 @@ to use the manual method.</p>
 
 <p>If you're using <code>wget</code> type:</p>
 
-<div class="highlight highlight-bash"><pre>wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | bash
+<div class="highlight highlight-bash"><pre>wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - <span class="p">|</span> bash
 </pre></div>
 
 <h3>
@@ -102,14 +106,14 @@ to use the manual method.</p>
 </li>
 <li>Download the latest <a href="http://nlp.stanford.edu/software/tagger.shtml">Stanford Postagger</a>
 </li>
-<li>Get extra NLTK dependencies by running <code>python -m nltk.downloader punkt</code>
+<li>Get extra NTLK dependencies <code>python -m nltk.downloader punkt</code>
 </li>
 <li>Install Flask and Pyner <code>pip install flask ner</code>
 </li>
 <li>Get the <a href="https://github.com/climatewarrior/nothing-to-hide/archive/master.zip">latest version of our code</a>
 </li>
-<li>Uncompress Stanford NER and Stanford Postagger into the <code>abstractor-server</code> directory within Nothing to Hide.</li>
-<li>See <a href="https://github.com/climatewarrior/nothing-to-hide/blob/master/utils/run.sh">run.sh</a> to learn how to start your servers manually.</li>
+<li>Uncompress Stanford NER and Stanford Postagger into the <code>anstractor-server</code> directory within Nothing to Hide.</li>
+<li>See <a href="https://github.com/climatewarrior/nothing-to-hide/blob/master/utils/run.sh">run.sh</a> to how to start your servers manually.</li>
 </ol><h2>
 <a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to use</h2>
 
@@ -118,7 +122,7 @@ to use the manual method.</p>
 <li> Start the server with: <code>bash utils/run.sh</code>.</li>
 <li> Open Chrome or Chromium and open your Gmail account.</li>
 <li> Write your email messages as you normally would.</li>
-<li> Before sending them, hit the VAGUE-IFY button below the compose button.</li>
+<li> Before sending them hit the VAGUE-IFY button below the compose button.</li>
 <li> Revise your messages. You can click on change words to bring them to their original form.</li>
 <li> When you are happy with your changes click Accept on the compose window.</li>
 <li> Shutdown the server whenever you wish or just leave it running in
@@ -147,13 +151,25 @@ the background.</li>
 <li>  <a href="https://pypi.python.org/pypi/nltk/2.0.1">NLTK</a>
 </li>
 </ul>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/climatewarrior">climatewarrior</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/climatewarrior/nothing-to-hide/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/climatewarrior/nothing-to-hide/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/climatewarrior/nothing-to-hide"></a> is maintained by <a href="https://github.com/climatewarrior">climatewarrior</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+
+  
   </body>
 </html>
