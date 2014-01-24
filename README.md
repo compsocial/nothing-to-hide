@@ -1,7 +1,7 @@
 # Nothing to Hide
 ![Demo](https://raw.github.com/climatewarrior/nothing-to-hide/master/recorded.gif)
 ## Warning
-This project is on the very early stages of development. On same rare
+A change. This project is on the very early stages of development. On same rare
 occasions it might tele-transport your computer to event
 horizon. Also, this version only supports the English language, sorry :(
 ## The Problem
