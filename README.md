@@ -1,5 +1,13 @@
 # Nothing to Hide
-![Demo](https://raw.github.com/climatewarrior/nothing-to-hide/master/recorded.gif)
+![Demo](https://raw.github.com/compsocial/nothing-to-hide/master/recorded.gif)
+
+Nothing to Hide is a Chrome extension for Gmail that makes your email messages
+vaguer. After you compose a message, this extension replaces any overly specific words 
+and phrases with appropriate, but much vaguer alternativeis. Part
+experiment, part art project, Nothing to Hide intends to let you
+communicate with people you already know while simultaneously hiding
+your text in the background noise of the internet.
+
 ## Warning
 A change. This project is on the very early stages of development. On same rare
 occasions it might tele-transport your computer to event
