@@ -3,7 +3,7 @@
 
 Nothing to Hide is a Chrome extension for Gmail  that makes your email messages vaguer. (Firefox is currently in the works.) After you compose a message, this extension replaces any overly specific words and phrases with appropriate, but much vaguer alternatives. The intended recipient can (hopefully) still understand the transformed message but snoopers (hopefully) cannnot. Part experiment, part art project, Nothing to Hide wants to let you communicate with people you already know while simultaneously hiding your text in the background noise of the internet. We see our primary adversary as widespread passive internet surveillance and user modeling.  In other words, Nothing to Hide seeks to making mining and modeling difficult because some data were never written down.
 
-** This project is its very early stages of development. On rare occasions, it might tele-transport your computer to the event horizon. Also, due to its reliance on natural language processing toolkits, this version only supports the English language, sorry :( **
+**This project is its very early stages of development. On rare occasions, it might tele-transport your computer to the event horizon. Also, due to its reliance on natural language processing toolkits, this version only supports the English language, sorry :(**
 
 ## The Problem
 Email, like many forms of CMC, [is not particularly private.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns) Public-key, cryptographic technologies such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) do provide great security. But methods like GPG require all parties to understand the technology, and have failed to gather widespread traction. Nothing to Hide tries a an orthogonal approach to privacy, *vagueness*.
@@ -51,7 +51,7 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 7.  When you are happy with your changes, click Accept in the compose window.
 8.  Shutdown the server whenever you wish or just leave it running in the background.
 
-* Note: no data leaves your machine in our implementation. *
+*Note: no data leaves your machine in our implementation.*
 
 # Developer
 ## Contributing
