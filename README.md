@@ -1,26 +1,12 @@
 # Nothing to Hide
-![Demo](https://raw.github.com/climatewarrior/nothing-to-hide/master/recorded.gif)
-## Warning
-This project is on the very early stages of development. On same rare
-occasions it might tele-transport your computer to event
-horizon. Also, this version only supports the English language, sorry :(
-## The Problem
-Email is [not a very private method of communication.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns)
-## Current Solutions
-There has been several attempts to make email more secure such as using end-to-end
-encryption. Some technologies, such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) do provide great security.
-But this and other methods of encryption have failed to gather
-traction. Without being popular, the system is not very effective since
-it requires all parties involved in communication to have a special
-setup. Also, many of the current solutions are hard to setup and configure for many
-users. Nothing to Hide tries a radically different approach to securing email.
+![Demo](https://raw.github.com/compsocial/nothing-to-hide/master/recorded.gif)
 
-## Our Solution
-Nothing to Hide attempts to make email more secure by making messages
-more vague, in such a way that the intended recipient can still
-understand the message but snoopers can't. In it's current form it
-only available as [Google Chrome](https://www.google.com/intl/en/chrome/browser/) and [Chromium](http://www.chromium.org/Home) add-on for [Gmail](https://mail.google.com). A
-[Firefox](https://www.mozilla.org/en-US/firefox/new/) version of the add-on is on the works.
+Nothing to Hide is a Chrome extension for Gmail  that makes your email messages vaguer. After you compose a message, this extension replaces any overly specific words and phrases with appropriate, but much vaguer alternatives. The intended recipient can (hopefully) still understand the transformed message but snoopers (hopefully) cannot. Part experiment, part art project, Nothing to Hide wants to let you communicate with people you already know while simultaneously hiding your text in the background noise of the internet. We see our primary adversary as widespread passive internet surveillance and user modeling.  In other words, Nothing to Hide seeks to making mining and modeling difficult because some data were never written down.
+
+**This project is its very early stages of development. On rare occasions, it might tele-transport your computer to the event horizon. Also, due to its reliance on natural language processing toolkits, this version only supports the English language, sorry :(**
+
+## The Problem
+Email, like many forms of CMC, [is not particularly private.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns) Public-key, cryptographic technologies such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) do provide great security. But methods like GPG require all parties to understand the technology, and have failed to gather widespread traction. Nothing to Hide tries an orthogonal approach to privacy, *vagueness*.
 
 ## Installation
 
@@ -33,16 +19,15 @@ First install our [Chrome extension](https://chrome.google.com/webstore/detail/k
 
 ### Automated
 The automated method has only been tested in GNU/Linux and Mac OS
-X. It should work for other Unix operating systems. Windows users have
-to use the manual method.
+X. It should work for other \*nixes. Windows users have to use the manual method.
 
 ####  Via Curl
-If you're using `curl` type the following command:
+If using `curl` type the following command:
 ```bash
 curl -L https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh | bash
 ```
 #### Via Wget
-If you're using `wget` type:
+If you prefer `wget` type:
 ```bash
 wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hide/master/utils/installer.sh -O - | bash
 ```
@@ -53,7 +38,7 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 3. Get extra NTLK dependencies `python -m nltk.downloader punkt`
 4. Install Flask and Pyner `pip install flask ner`
 5. Get the [latest version of our code](https://github.com/climatewarrior/nothing-to-hide/archive/master.zip)
-6. Uncompress Stanford NER and Stanford Postagger into the `anstractor-server` directory within Nothing to Hide.
+6. Uncompress Stanford NER and Stanford Postagger into the `abstractor-server` directory within Nothing to Hide.
 7. See [run.sh](https://github.com/climatewarrior/nothing-to-hide/blob/master/utils/run.sh) to how to start your servers manually.
 
 ## How to use
@@ -62,10 +47,11 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 3.  Open Chrome or Chromium and open your Gmail account.
 4.  Write your email messages as you normally would.
 5.  Before sending them hit the VAGUE-IFY button below the compose button.
-6.  Revise your messages. You can click on change words to bring them to their original form.
-7.  When you are happy with your changes click Accept on the compose window.
-8.  Shutdown the server whenever you wish or just leave it running in
-    the background.
+6.  Revise your messages. You can click on changed words to bring them to their original form.
+7.  When you are happy with your changes, click Accept in the compose window.
+8.  Shutdown the server whenever you wish or just leave it running in the background.
+
+*Note: no data leaves your machine in our implementation.*
 
 # Developer
 ## Contributing
