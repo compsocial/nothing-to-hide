@@ -25,12 +25,16 @@ nerify = ner.SocketNER(host='localhost', port=9000)
 st = POSTagger('../stanford-postagger-2013-06-20/models/english-bidirectional-distsim.tagger',
                '../stanford-postagger-2013-06-20/stanford-postagger-3.2.0.jar')
 punct = re.compile('[%s]' % re.escape(string.punctuation))
-# note these are in reverse order of use for pop() later
-altperson = collections.deque(['somebody else still', 'an individual', \
-'another person', 'somebody else', 'someone else', 'someone', 'this person'])
+
+# Note that these are in reverse order of use for pop() later
+
+# Replacements for NER
+altperson = collections.deque(['person', 'individual', 'somebody', 'someone'])
 altloc = collections.deque(['that spot', 'that site', 'that location', \
 'there', 'that place'])
 altorg = collections.deque(['the organization'])
+
+# Replacements for POS Tagger
 altnoun = collections.deque(['that thing'])
 altnoun_plural = collections.deque(['those things'])
 altverb = collections.deque(['doing something'])
@@ -115,7 +119,7 @@ def abstract(text):
             word = pair[0]
             postag = pair[1]
             if not re.match(punct, word) and word.lower() not in top1k:
-                if word not in transformations:
+                if not part_of_word_in_list(transformations, word):
                     if postag.startswith('NNP'):
                         print word
                         print 'NNP'
@@ -136,6 +140,13 @@ def abstract(text):
     db['progress'] = 0 # Reset value for next run
 
     return jsonify(transformations)
+
+def part_of_word_in_list(list, word):
+    for w in list:
+        if word in w:
+            return True
+
+    return False
 
 def proper_case(original, replacement):
     if original[0].isupper():
