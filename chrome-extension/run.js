@@ -4,6 +4,7 @@
 var options; // Global options object
 var replacement; // Replacement option
 var lookup; //Words lookup option
+var vagueifying = false;
 
 var abstractifyAPI = "http://127.0.0.1:5000/";
 var abstractify = abstractifyAPI + "abstractify";
@@ -28,18 +29,26 @@ $( document ).ready(function() {
     // Change new button text
     $("div[class='z0'] div:contains('COMPOSE'):eq(1)").text('VAGUE-IFY');
 
-    $("div[class='z0'] div:contains('VAGUE-IFY')").click(function() {
-        chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
-            options = response.options;
-            init();
-        });
-    });
+    var run = function() {
+        console.log(vagueifying);
+        if (!vagueifying) {
+            console.log(vagueifying);
+            vagueifying = true;
+            console.log(vagueifying);
+            chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
+                options = response.options;
+                init();
+            });
+        }
+    };
+
+    $("div[class='z0'] div:contains('VAGUE-IFY')").on('click', run);
 });
 
 function init() {
 
     // Show the selected options
-    console.log(options);
+    // console.log(options);
 
     // config based on options
     replacement = "+";
@@ -64,11 +73,11 @@ function process (pane) {
     var jpane = $(pane); // Convert into Jquery object
     var compose_element = jpane.find('div[aria-label="Message Body"]');
     var message_text = compose_element.text();
-    console.log("Original Message");
-    console.log(message_text);
+    // console.log("Original Message");
+    // console.log(message_text);
     var trimmed = message_text.replace(/^\s+|\s+$/g, '');
-    console.log('Trimmed');
-    console.log(trimmed);
+    // console.log('Trimmed');
+    // console.log(trimmed);
 
     // Append a progress bar
     compose_element.prepend(progressBarHTML);
@@ -79,8 +88,8 @@ function process (pane) {
             url: progress,
             type: "GET",
             success: function(data) {
-                console.log("polling");
-                console.log(data.progress);
+                // console.log("polling");
+                // console.log(data.progress);
                 $(".vprogress").css({ "width": data.progress + '%'});
             },
             dataType: "json",
@@ -103,14 +112,14 @@ function process (pane) {
                var localTransforms = commonWords(tokens);
                var transforms = $.extend(true, {}, serverTransforms,
                                          localTransforms);
-               console.log("Tokens");
-               console.log(tokens);
-               console.log("Local transforms");
-               console.log(localTransforms);
-               console.log("server transforms");
-               console.log(serverTransforms);
-               console.log("Transforms");
-               console.log(transforms);
+               // console.log("Tokens");
+               // console.log(tokens);
+               // console.log("Local transforms");
+               // console.log(localTransforms);
+               // console.log("server transforms");
+               // console.log(serverTransforms);
+               // console.log("Transforms");
+               // console.log(transforms);
                finish(transforms, compose_element, jpane);
            }, "json");
 };
@@ -166,6 +175,9 @@ function finish(transformations, compose_element, pane) {
     if (next_pane) {
         process(next_pane); // Process next pane
     }
+
+    // All messages processed, no longer vagueifying
+    vagueifying = false;
 
 }
 
