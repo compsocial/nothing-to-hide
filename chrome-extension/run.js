@@ -4,7 +4,6 @@
 var options; // Global options object
 var replacement; // Replacement option
 var lookup; //Words lookup option
-var vagueifying = false;
 
 var abstractifyAPI = "http://127.0.0.1:5000/";
 var abstractify = abstractifyAPI + "abstractify";
@@ -30,16 +29,10 @@ $( document ).ready(function() {
     $("div[class='z0'] div:contains('COMPOSE'):eq(1)").text('VAGUE-IFY');
 
     var run = function() {
-        console.log(vagueifying);
-        if (!vagueifying) {
-            console.log(vagueifying);
-            vagueifying = true;
-            console.log(vagueifying);
-            chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
-                options = response.options;
-                init();
-            });
-        }
+        chrome.runtime.sendMessage({method: "vagueify"}, function(response) {
+            options = response.options;
+            init();
+        });
     };
 
     $("div[class='z0'] div:contains('VAGUE-IFY')").on('click', run);
@@ -64,7 +57,20 @@ function init() {
 
     // Process all messages
     panes = $('div[role="dialog"]').toArray();
-    process(panes.pop()); // Process the next one
+
+    for (var i = 0; i < panes.length; i++) {
+        var curr_pane = $(panes[i]); // Convert to Jquery object
+
+        var processed = curr_pane.find('div[data-tooltip="Accept changes"]');
+        var processing = curr_pane.find('div[class="vagueify-msg"]');
+
+        // Check if the message has not already been vagueified or is not being
+        // vagueified
+        if (processed.length < 1 && processing.length < 1) {
+            console.log(curr_pane);
+            process(curr_pane); // Process the next one
+        }
+    }
 
 }
 
@@ -167,18 +173,6 @@ function finish(transformations, compose_element, pane) {
 
     // Put on new view with transformations
     compose_element.html(processed);
-
-    // Get next pane, if there is one
-    var next_pane = panes.pop();
-
-    // Is there another pane?
-    if (next_pane) {
-        process(next_pane); // Process next pane
-    }
-
-    // All messages processed, no longer vagueifying
-    vagueifying = false;
-
 }
 
 function commonWords(tokens) {
