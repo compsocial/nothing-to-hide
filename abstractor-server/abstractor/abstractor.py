@@ -37,8 +37,8 @@ altorg = collections.deque(['the organization'])
 # Replacements for POS Tagger
 altnoun = collections.deque(['that thing'])
 altnoun_plural = collections.deque(['those things'])
-altverb = collections.deque(['doing something'])
-altverb_past = collections.deque(['were doing something'])
+altverb = collections.deque(['"some action"'])
+altverb_past = collections.deque(['"some past action"'])
 
 @app.route("/test")
 def test():
@@ -128,14 +128,14 @@ def abstract(text):
                         print word
                         print 'NNPS'
                         transformations[word] = get_replacement(word, altnoun_plural)
-                    # elif postag.startswith('VB'):
-                    #     print word
-                    #     print 'NNPS'
-                    #     transformations[word] = get_replacement(word, altverb)
-                    # elif postag.startswith('VBD'):
-                    #     print word
-                    #     print 'VBD'
-                    #     transformations[word] = get_replacement(word, altverb_past)
+                    elif postag.startswith('VB'):
+                        print word
+                        print 'VB'
+                        transformations[word] = get_replacement(word, altverb)
+                    elif postag.startswith('VBD'):
+                        print word
+                        print 'VBD'
+                        transformations[word] = get_replacement(word, altverb_past)
 
     db['progress'] = 0 # Reset value for next run
 
