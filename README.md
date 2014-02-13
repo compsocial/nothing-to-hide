@@ -55,9 +55,14 @@ wget --no-check-certificate https://raw.github.com/climatewarrior/nothing-to-hid
 
 # Developer
 ## Contributing
-### Building
-####  Dependencies
-
+Feel free to send out any pull requests or issues our way!
+[Here's a simple guide](http://gun.io/blog/how-to-github-fork-branch-and-pull-request/)
+on contributing to open source projects on Github.
+## Contributors
+Professor Eric Gilbert came up with the idea and the initial
+implementation of Nothing to Hide. Gabriel J. Pérez Irizarry worked up
+the initial implementation and brought it to it's current status.
+###  Dependencies
 -   [Pyner](https://github.com/dat/pyner)
 -   [Flask](http://flask.pocoo.org/)
 -   [Stanford NER](https://github.com/dat/stanford-ner)
