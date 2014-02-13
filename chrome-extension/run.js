@@ -149,11 +149,12 @@ function finish(transformations, compose_element, pane) {
                 // Replace with vague words, remove ☒ character
                 $(this).replaceWith($(this).text().slice(0,-1));
             });
+
+        $(this).remove(); // Remove the accept button when done
     });
 
     // Remove button copies, I don't know where they come from :/
     // pane.find('div[data-tooltip="Accept changes‬"]:gt(1)').remove();
-
 
     $.each(transformations, function(regularWord, vagueWord) {
         // We will replace words that the server has vague versions of with this
