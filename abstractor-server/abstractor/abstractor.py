@@ -28,17 +28,16 @@ punct = re.compile('[%s]' % re.escape(string.punctuation))
 
 # Note that these are in reverse order of use for pop() later
 
-# Replacements for NER
-altperson = collections.deque(['person', 'individual', 'somebody', 'someone'])
-altloc = collections.deque(['that spot', 'that site', 'that location', \
-'there', 'that place'])
-altorg = collections.deque(['the organization'])
+# Replacements for NER ... this used to try harder
+altperson = collections.deque(['[person]'])
+altloc = collections.deque(['[location]'])
+altorg = collections.deque(['[organization]'])
 
-# Replacements for POS Tagger
-altnoun = collections.deque(['that thing'])
-altnoun_plural = collections.deque(['those things'])
-altverb = collections.deque(['"some action"'])
-altverb_past = collections.deque(['"some past action"'])
+# Replacements for POS Tagger ... this used to try harder
+altnoun = collections.deque(['[thing]'])
+altnoun_plural = collections.deque(['[things]'])
+altverb = collections.deque(['[action]'])
+altverb_past = collections.deque(['[past action]'])
 
 @app.route("/test")
 def test():
@@ -97,7 +96,7 @@ def abstract(text):
     increment = 50.0/len(wordlists) # Calculate increment for progress bar
 
     # Randomly reduce wordlists, we want to make this faster
-    wordlists = random.sample(wordlists, len(wordlists)/2)
+    # wordlists = random.sample(wordlists, len(wordlists)/2)
 
     print transformations
 
@@ -162,9 +161,9 @@ def get_next_alt(alt_list):
 
 def get_replacement(original, alt_list):
     alt = get_next_alt(alt_list)
-    replacement = proper_case(original, alt)
+    # replacement = proper_case(original, alt)
 
-    return replacement
+    return alt
 
 if __name__ == "__main__":
     app.run(debug=True, threaded=True)
