@@ -1,6 +1,6 @@
 {
   "name": "Vague-ify",
-  "version": "2.3",
+  "version": "3.0",
   "permissions": [
     "tabs",
     "https://mail.google.com/*",
