@@ -10,7 +10,7 @@ Email, like many forms of CMC, [is not particularly private.](https://en.wikiped
 
 ## Installation
 
-First install our [Chrome extension](https://chrome.google.com/webstore/detail/keiegjchmoggjbpgfjdjghbiicpjneoe). Also, you need the following installed:
+First install our [Chrome extension](https://chrome.google.com/webstore/detail/nothing-to-hide/keiegjchmoggjbpgfjdjghbiicpjneoe). Also, you need the following installed:
 
 -   [Java](http://openjdk.java.net/) (Only tested with Java 1.6 and higher)
 -   [Python](http://python.org/) (Only tested with Python 2.6.x and higher)
