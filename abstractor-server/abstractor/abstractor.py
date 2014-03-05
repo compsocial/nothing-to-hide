@@ -92,49 +92,52 @@ def abstract(text):
             transformations[o] = get_replacement(o, altorg)
 
     count = 50 # Half way done
+
+    #tokenize for tagger
     wordlists = [word_tokenize(s) for s in sent_tokenize(text)]
-    increment = 50.0/len(wordlists) # Calculate increment for progress bar
+
+    # flatten the word lists
+    words = [item for sublist in wordlists for item in sublist]
+
+    increment = 50.0/len(words) # Calculate increment for progress bar
 
     # Randomly reduce wordlists, we want to make this faster
     # wordlists = random.sample(wordlists, len(wordlists)/2)
 
-    print transformations
+    ascii_word_list = []
+    for word in words:
+        try:
+            word.decode('ascii')
+            ascii_word_list.append(word)
+        except UnicodeDecodeError:
+            print "it was not a ascii-encoded unicode string"
+            print word
 
-    for wordlist in wordlists:
-        ascii_word_list = []
-        for word in wordlist:
-            try:
-                word.decode('ascii')
-                ascii_word_list.append(word)
-            except UnicodeDecodeError:
-                print "it was not a ascii-encoded unicode string"
-                print word
+    pos = st.tag(ascii_word_list)
 
-        pos = st.tag(ascii_word_list)
+    for pair in pos:
         count += increment
         db['progress'] = count # Update value for progress bar
-        #code.interact(local = locals())
-        for pair in pos:
-            word = pair[0]
-            postag = pair[1]
-            if not re.match(punct, word) and word.lower() not in top1k:
-                if not part_of_word_in_list(transformations, word):
-                    if postag.startswith('NNP'):
-                        print word
-                        print 'NNP'
-                        transformations[word] = get_replacement(word, altnoun)
-                    elif postag.startswith('NNPS'):
-                        print word
-                        print 'NNPS'
-                        transformations[word] = get_replacement(word, altnoun_plural)
-                    elif postag.startswith('VB'):
-                        print word
-                        print 'VB'
-                        transformations[word] = get_replacement(word, altverb)
-                    elif postag.startswith('VBD'):
-                        print word
-                        print 'VBD'
-                        transformations[word] = get_replacement(word, altverb_past)
+        word = pair[0]
+        postag = pair[1]
+        if not re.match(punct, word) and word.lower() not in top1k:
+            if not part_of_word_in_list(transformations, word):
+                if postag.startswith('NNP'):
+                    print word
+                    print 'NNP'
+                    transformations[word] = get_replacement(word, altnoun)
+                elif postag.startswith('NNPS'):
+                    print word
+                    print 'NNPS'
+                    transformations[word] = get_replacement(word, altnoun_plural)
+                elif postag.startswith('VB'):
+                    print word
+                    print 'VB'
+                    transformations[word] = get_replacement(word, altverb)
+                elif postag.startswith('VBD'):
+                    print word
+                    print 'VBD'
+                    transformations[word] = get_replacement(word, altverb_past)
 
     db['progress'] = 0 # Reset value for next run
 
