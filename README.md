@@ -1,12 +1,20 @@
 # Nothing to Hide
 ![Demo](https://raw.github.com/compsocial/nothing-to-hide/master/recorded.gif)
 
-Nothing to Hide is a Chrome extension for Gmail  that makes your email messages vaguer. After you compose a message, this extension replaces any overly specific words and phrases with appropriate, but much vaguer alternatives. The intended recipient can (hopefully) still understand the transformed message but snoopers (hopefully) cannot. Part experiment, part art project, Nothing to Hide wants to let you communicate with people you already know while simultaneously hiding your text in the background noise of the internet. We see our primary adversary as widespread passive internet surveillance and user modeling.  In other words, Nothing to Hide seeks to making mining and modeling difficult because some data were never written down.
+Nothing to Hide is a Chrome extension for Gmail that makes your email messages vaguer. After you compose a message, Nothing to Hide replaces any overly specific words and phrases with appropriate, but much vaguer alternatives. The intended recipient can (hopefully) still understand the transformed message but snoopers (hopefully) cannot. Part experiment, part art project, Nothing to Hide wants to let you communicate with people you already know while simultaneously hiding your text in the background noise of the internet. In other words, Nothing to Hide seeks to confound user mining and user modeling because some of the most telling information was never written down.
 
 **This project is its very early stages of development. On rare occasions, it might tele-transport your computer to the event horizon. Also, due to its reliance on natural language processing toolkits, this version only supports the English language, sorry :(**
 
+**If you are interested in being part of the academic experiment on this
+project, send email to Eric Gilbert at gilbert@cc.[georgia tech's
+domain].**
+
 ## The Problem
-Email, like many forms of CMC, [is not particularly private.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns) Public-key, cryptographic technologies such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) do provide great security. But methods like GPG require all parties to understand the technology, and have failed to gather widespread traction. Nothing to Hide tries an orthogonal approach to privacy, *vagueness*.
+Email, like many forms of CMC, [is not particularly private.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns) Public-key, cryptographic technologies such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) offer great security. But methods like GPG require all parties to have and understand the technology, and have failed to gather widespread traction. Nothing to Hide tries an orthogonal and socially-inspired approach to privacy, *vagueness*.
+
+## This Solution 
+We'll be writing more here, but essentially it depends on the [Google 1T
+corpus](http://catalog.ldc.upenn.edu/LDC2006T13) and [well-known natural language processing tools](http://nlp.stanford.edu/software/index.shtml).
 
 ## Installation
 
@@ -61,7 +69,7 @@ on contributing to open source projects on Github.
 ## Contributors
 Professor Eric Gilbert came up with the idea and the initial
 implementation of Nothing to Hide. Gabriel J. Pérez Irizarry worked up
-the initial implementation and brought it to it's current status.
+the initial implementation and brought it to its current status.
 ###  Dependencies
 -   [Pyner](https://github.com/dat/pyner)
 -   [Flask](http://flask.pocoo.org/)
