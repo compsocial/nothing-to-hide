@@ -5,9 +5,9 @@ Nothing to Hide is a Chrome extension for Gmail that makes your email messages v
 
 **This project is its very early stages of development. On rare occasions, it might tele-transport your computer to the event horizon. Also, due to its reliance on natural language processing toolkits, this version only supports the English language, sorry :(**
 
-**If you are interested in being part of the academic experiment on this
+If you are interested in being part of the academic experiment on this
 project, send email to Eric Gilbert at gilbert@cc.[georgia tech's
-domain].**
+domain].
 
 ## The Problem
 Email, like many forms of CMC, [is not particularly private.](https://en.wikipedia.org/wiki/Email_security#Privacy_concerns) Public-key, cryptographic technologies such as [GPG](https://en.wikipedia.org/wiki/GNU_Privacy_Guard) offer great security. But methods like GPG require all parties to have and understand the technology, and have failed to gather widespread traction. Nothing to Hide tries an orthogonal and socially-inspired approach to privacy, *vagueness*.
