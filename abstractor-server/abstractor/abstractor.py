@@ -11,6 +11,7 @@ from nltk.tag.stanford import POSTagger
 from onetfreq import top10k, top5k, top1k
 import random
 import code
+import datetime
 
 SHELVE_DB = 'shelve.db'
 
@@ -61,6 +62,12 @@ def abstractify():
     return abstract(text)
 
 def abstract(text):
+
+    date = str(datetime.datetime.now())
+
+    with open("nth_log_" + date + ".orig.txt", 'w') as myFile:
+        myFile.write(text)
+
     db.setdefault('progress', 0) # Default progress is 0
     count = 0 # Just starting
     db['progress'] = count # Set current progress
@@ -140,6 +147,17 @@ def abstract(text):
                     transformations[word] = get_replacement(word, altverb_past)
 
     db['progress'] = 0 # Reset value for next run
+
+    vague_message = ""
+    for w in words:
+        try:
+            t = transformations[w]
+            vague_message += " " + t
+        except:
+            vague_message += " " + w
+
+    with open("nth_log_" + date + ".vague.txt", 'w') as myFile:
+        myFile.write(vague_message)
 
     return jsonify(transformations)
 
